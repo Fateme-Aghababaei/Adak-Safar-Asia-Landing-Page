@@ -1,17 +1,24 @@
-document.addEventListener('DOMContentLoaded', function() {
-    
-    const menuBtn = document.getElementById('mobile-menu-btn');
-    const mobileMenu = document.getElementById('mobile-menu');
-    const menuIcon = document.getElementById('menu-icon');
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+
+gsap.registerPlugin(ScrollTrigger);
+
+document.addEventListener('DOMContentLoaded', function () {
+
+    // =========================================================
+    //  SECTION 1 — MOBILE MENU
+    // =========================================================
+
+    const menuBtn     = document.getElementById('mobile-menu-btn');
+    const mobileMenu  = document.getElementById('mobile-menu');
+    const menuIcon    = document.getElementById('menu-icon');
     const mobileLinks = document.querySelectorAll('.mobile-link');
 
     if (menuBtn && mobileMenu && menuIcon) {
         menuBtn.addEventListener('click', () => {
             mobileMenu.classList.toggle('hidden');
             mobileMenu.classList.toggle('flex');
-            
             document.body.classList.toggle('overflow-hidden');
-            
             menuIcon.classList.toggle('bi-list');
             menuIcon.classList.toggle('bi-x-lg');
         });
@@ -27,44 +34,365 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
+    // =========================================================
+    //  SECTION 2 — SMOOTH SCROLL
+    // =========================================================
+
     const anchorLinks = document.querySelectorAll('a[href^="#"]');
     anchorLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
+        link.addEventListener('click', function (e) {
             const targetId = this.getAttribute('href');
             if (targetId && targetId.length > 1) {
                 const targetElement = document.querySelector(targetId);
                 if (targetElement) {
                     e.preventDefault();
-                    const offset = 96; // ارتفاع هدر
+                    const offset          = 96;
                     const elementPosition = targetElement.getBoundingClientRect().top + window.scrollY;
                     window.scrollTo({
-                        top: elementPosition - offset,
-                        behavior: 'smooth'
+                        top:      elementPosition - offset,
+                        behavior: 'smooth',
                     });
                 }
             }
         });
     });
 
+    // =========================================================
+    //  SECTION 3 — FAQ ACCORDION
+    // =========================================================
+
     const detailsElements = document.querySelectorAll('details[name="faq-group"]');
     detailsElements.forEach(targetDetail => {
-        targetDetail.addEventListener("click", () => {
+        targetDetail.addEventListener('click', () => {
             detailsElements.forEach(detail => {
                 if (detail !== targetDetail) {
-                    detail.removeAttribute("open");
+                    detail.removeAttribute('open');
                 }
             });
         });
     });
 
-    const logClick = (type) => {
-        console.log(`User Action: Clicked ${type}`);
-    };
+    // =========================================================
+    //  SECTION 4 — ANALYTICS LOGGING
+    // =========================================================
+
+    const logClick = (type) => console.log(`User Action: Clicked ${type}`);
     document.querySelectorAll('a[href^="tel:"]').forEach(a => {
         a.addEventListener('click', () => logClick('Phone Call'));
     });
     document.querySelectorAll('a[href*="wa.me"]').forEach(a => {
         a.addEventListener('click', () => logClick('WhatsApp'));
+    });
+
+    // =========================================================
+    //  SECTION 5 — GSAP ANIMATIONS
+    // =========================================================
+
+    // Skip animations if user prefers reduced motion
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.querySelectorAll('.gsap-hero-child').forEach(el => {
+            el.style.opacity = '1';
+        });
+        return;
+    }
+
+    // ---------------------------------------------------------
+    //  5A — HEADER: gold glow on scroll
+    // ---------------------------------------------------------
+
+    const header = document.querySelector('header');
+
+    ScrollTrigger.create({
+        start: 80,
+        onEnter: () => {
+            header.style.boxShadow = '0 4px 40px rgba(212,175,55,0.12)';
+            header.classList.add('header-scrolled');
+        },
+        onLeaveBack: () => {
+            header.style.boxShadow = '';
+            header.classList.remove('header-scrolled');
+        },
+    });
+
+    // ---------------------------------------------------------
+    //  5B — HERO: staggered entrance sequence on page load
+    // ---------------------------------------------------------
+
+    const heroContent = document.getElementById('hero-content');
+
+    if (heroContent) {
+        const heroChildren = heroContent.querySelectorAll('.gsap-hero-child');
+
+        const heroTl = gsap.timeline({
+            defaults: { ease: 'power3.out' },
+            delay:    0.15,
+        });
+
+        heroTl
+            .fromTo(
+                heroChildren[0],
+                { y: -28, opacity: 0 },
+                { y: 0, opacity: 1, duration: 0.7 }
+            )
+            .fromTo(
+                heroChildren[1],
+                { y: 70, opacity: 0 },
+                { y: 0, opacity: 1, duration: 1.0, ease: 'power4.out' },
+                '-=0.35'
+            )
+            .fromTo(
+                heroChildren[2],
+                { y: 40, opacity: 0 },
+                { y: 0, opacity: 1, duration: 0.85 },
+                '-=0.55'
+            )
+            .fromTo(
+                heroChildren[3],
+                { y: 28, opacity: 0 },
+                { y: 0, opacity: 1, duration: 0.7 },
+                '-=0.45'
+            )
+            .fromTo(
+                heroChildren[4],
+                { opacity: 0, y: 12 },
+                { opacity: 1, y: 0, duration: 0.55 },
+                '-=0.3'
+            );
+    }
+
+    // ---------------------------------------------------------
+    //  5C — HERO IMAGE: parallax scroll
+    // ---------------------------------------------------------
+
+    const heroImg = document.querySelector('.hero-bg-img');
+    if (heroImg) {
+        gsap.to(heroImg, {
+            yPercent:      18,
+            ease:          'none',
+            scrollTrigger: {
+                trigger: '.hero-section',
+                start:   'top top',
+                end:     'bottom top',
+                scrub:   1.8,
+            },
+        });
+    }
+
+    // ---------------------------------------------------------
+    //  5D — ABOUT SECTION
+    // ---------------------------------------------------------
+
+    gsap.fromTo(
+        '#about-text',
+        { x: 70, opacity: 0 },
+        {
+            x:             0,
+            opacity:       1,
+            duration:      1.1,
+            ease:          'power3.out',
+            scrollTrigger: { trigger: '#about', start: 'top 72%' },
+        }
+    );
+
+    gsap.fromTo(
+        '#about-image',
+        { x: -70, opacity: 0 },
+        {
+            x:             0,
+            opacity:       1,
+            duration:      1.1,
+            ease:          'power3.out',
+            scrollTrigger: { trigger: '#about', start: 'top 72%' },
+        }
+    );
+
+    gsap.fromTo(
+        '#about-stats > div',
+        { y: 35, opacity: 0, scale: 0.9 },
+        {
+            y:             0,
+            opacity:       1,
+            scale:         1,
+            duration:      0.65,
+            stagger:       0.14,
+            ease:          'back.out(1.8)',
+            scrollTrigger: { trigger: '#about-stats', start: 'top 88%' },
+        }
+    );
+
+    // ---------------------------------------------------------
+    //  5E — SERVICES SECTION
+    // ---------------------------------------------------------
+
+    gsap.fromTo(
+        '#services-header > *',
+        { y: 30, opacity: 0 },
+        {
+            y:             0,
+            opacity:       1,
+            duration:      0.75,
+            stagger:       0.1,
+            ease:          'power2.out',
+            scrollTrigger: { trigger: '#services-header', start: 'top 82%' },
+        }
+    );
+
+    gsap.fromTo(
+        '#services-grid > div',
+        { y: 60, opacity: 0 },
+        {
+            y:             0,
+            opacity:       1,
+            duration:      0.7,
+            stagger:       { each: 0.1, from: 'start' },
+            ease:          'power2.out',
+            scrollTrigger: { trigger: '#services-grid', start: 'top 82%' },
+        }
+    );
+
+    // ---------------------------------------------------------
+    //  5F — SEO GUIDE SECTION
+    // ---------------------------------------------------------
+
+    gsap.fromTo(
+        '#seo-title',
+        { x: 50, opacity: 0 },
+        {
+            x:             0,
+            opacity:       1,
+            duration:      0.9,
+            ease:          'power3.out',
+            scrollTrigger: { trigger: '#seo-guide', start: 'top 80%' },
+        }
+    );
+
+    gsap.fromTo(
+        '#seo-article > *',
+        { y: 28, opacity: 0 },
+        {
+            y:             0,
+            opacity:       1,
+            duration:      0.65,
+            stagger:       0.13,
+            ease:          'power2.out',
+            scrollTrigger: { trigger: '#seo-article', start: 'top 85%' },
+        }
+    );
+
+    // ---------------------------------------------------------
+    //  5G — STANDARDS / FLEET SECTION
+    // ---------------------------------------------------------
+
+    gsap.fromTo(
+        '#fleet-header > *',
+        { y: 25, opacity: 0 },
+        {
+            y:             0,
+            opacity:       1,
+            duration:      0.7,
+            stagger:       0.1,
+            ease:          'power2.out',
+            scrollTrigger: { trigger: '#fleet-header', start: 'top 82%' },
+        }
+    );
+
+    gsap.fromTo(
+        '#fleet-grid > div',
+        { y: 55, opacity: 0, scale: 0.88 },
+        {
+            y:             0,
+            opacity:       1,
+            scale:         1,
+            duration:      0.7,
+            stagger:       0.14,
+            ease:          'back.out(1.5)',
+            scrollTrigger: { trigger: '#fleet-grid', start: 'top 82%' },
+        }
+    );
+
+    // ---------------------------------------------------------
+    //  5H — FAQ SECTION
+    // ---------------------------------------------------------
+
+    gsap.fromTo(
+        '#faq-header > *',
+        { y: 25, opacity: 0 },
+        {
+            y:             0,
+            opacity:       1,
+            duration:      0.7,
+            stagger:       0.1,
+            ease:          'power2.out',
+            scrollTrigger: { trigger: '#faq-header', start: 'top 82%' },
+        }
+    );
+
+    gsap.fromTo(
+        '#faq-list > details',
+        { x: -35, opacity: 0 },
+        {
+            x:             0,
+            opacity:       1,
+            duration:      0.55,
+            stagger:       0.08,
+            ease:          'power2.out',
+            scrollTrigger: { trigger: '#faq-list', start: 'top 85%' },
+        }
+    );
+
+    gsap.fromTo(
+        '#faq-contact',
+        { y: 45, opacity: 0, scale: 0.97 },
+        {
+            y:             0,
+            opacity:       1,
+            scale:         1,
+            duration:      0.85,
+            ease:          'power3.out',
+            scrollTrigger: { trigger: '#faq-contact', start: 'top 90%' },
+        }
+    );
+
+    // ---------------------------------------------------------
+    //  5I — FOOTER
+    // ---------------------------------------------------------
+
+    gsap.fromTo(
+        '#footer-heading',
+        { y: 30, opacity: 0 },
+        {
+            y:             0,
+            opacity:       1,
+            duration:      0.8,
+            ease:          'power2.out',
+            scrollTrigger: { trigger: 'footer', start: 'top 88%' },
+        }
+    );
+
+    gsap.fromTo(
+        '#footer-grid > div',
+        { y: 30, opacity: 0 },
+        {
+            y:             0,
+            opacity:       1,
+            duration:      0.65,
+            stagger:       0.1,
+            ease:          'power2.out',
+            scrollTrigger: { trigger: '#footer-grid', start: 'top 92%' },
+        }
+    );
+
+    // ---------------------------------------------------------
+    //  5J — STAT CARD hover micro-interaction
+    // ---------------------------------------------------------
+
+    document.querySelectorAll('#about-stats > div').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.classList.add('stat-animate');
+            card.addEventListener('animationend', () => {
+                card.classList.remove('stat-animate');
+            }, { once: true });
+        });
     });
 
 });
