@@ -5,6 +5,27 @@ gsap.registerPlugin(ScrollTrigger);
 
 document.addEventListener('DOMContentLoaded', function () {
 
+    // Pointer-driven reflection, limited to small floating controls and navigation.
+    // No scroll loop, device sensors, or animation when the pointer is idle.
+    if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches && window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
+        document.querySelectorAll('.glass-material').forEach(surface => {
+            let frame;
+            surface.addEventListener('pointermove', event => {
+                cancelAnimationFrame(frame);
+                frame = requestAnimationFrame(() => {
+                    const bounds = surface.getBoundingClientRect();
+                    surface.style.setProperty('--glass-x', `${event.clientX - bounds.left}px`);
+                    surface.style.setProperty('--glass-y', `${event.clientY - bounds.top}px`);
+                });
+            }, { passive: true });
+            surface.addEventListener('pointerleave', () => {
+                cancelAnimationFrame(frame);
+                surface.style.removeProperty('--glass-x');
+                surface.style.removeProperty('--glass-y');
+            });
+        });
+    }
+
     // =========================================================
     //  SECTION 1 — MOBILE MENU
     // =========================================================
@@ -16,6 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     if (menuBtn && mobileMenu && menuIcon) {
         menuBtn.addEventListener('click', () => {
+            menuBtn.setAttribute('aria-expanded', String(menuBtn.getAttribute('aria-expanded') !== 'true'));
             mobileMenu.classList.toggle('hidden');
             mobileMenu.classList.toggle('flex');
             document.body.classList.toggle('overflow-hidden');
@@ -25,6 +47,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
         mobileLinks.forEach(link => {
             link.addEventListener('click', () => {
+                menuBtn.setAttribute('aria-expanded', 'false');
                 mobileMenu.classList.add('hidden');
                 mobileMenu.classList.remove('flex');
                 document.body.classList.remove('overflow-hidden');
@@ -33,6 +56,10 @@ document.addEventListener('DOMContentLoaded', function () {
             });
         });
     }
+
+    document.addEventListener('keydown', event => {
+        if (event.key === 'Escape' && menuBtn?.getAttribute('aria-expanded') === 'true') { menuBtn.click(); menuBtn.focus(); }
+    });
 
     // =========================================================
     //  SECTION 2 — SMOOTH SCROLL
@@ -50,7 +77,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     const elementPosition = targetElement.getBoundingClientRect().top + window.scrollY;
                     window.scrollTo({
                         top:      elementPosition - offset,
-                        behavior: 'smooth',
+                        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
                     });
                 }
             }
@@ -97,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     // ---------------------------------------------------------
-    //  5A — HEADER: gold glow on scroll
+    //  5A — HEADER: elevated surface on scroll
     // ---------------------------------------------------------
 
     const header = document.querySelector('header');
@@ -105,7 +132,7 @@ document.addEventListener('DOMContentLoaded', function () {
     ScrollTrigger.create({
         start: 80,
         onEnter: () => {
-            header.style.boxShadow = '0 4px 40px rgba(212,175,55,0.12)';
+            header.style.boxShadow = 'var(--glass-shadow)';
             header.classList.add('header-scrolled');
         },
         onLeaveBack: () => {
@@ -128,54 +155,7 @@ document.addEventListener('DOMContentLoaded', function () {
             delay:    0.15,
         });
 
-        heroTl
-            .fromTo(
-                heroChildren[0],
-                { y: -28, opacity: 0 },
-                { y: 0, opacity: 1, duration: 0.7 }
-            )
-            .fromTo(
-                heroChildren[1],
-                { y: 70, opacity: 0 },
-                { y: 0, opacity: 1, duration: 1.0, ease: 'power4.out' },
-                '-=0.35'
-            )
-            .fromTo(
-                heroChildren[2],
-                { y: 40, opacity: 0 },
-                { y: 0, opacity: 1, duration: 0.85 },
-                '-=0.55'
-            )
-            .fromTo(
-                heroChildren[3],
-                { y: 28, opacity: 0 },
-                { y: 0, opacity: 1, duration: 0.7 },
-                '-=0.45'
-            )
-            .fromTo(
-                heroChildren[4],
-                { opacity: 0, y: 12 },
-                { opacity: 1, y: 0, duration: 0.55 },
-                '-=0.3'
-            );
-    }
-
-    // ---------------------------------------------------------
-    //  5C — HERO IMAGE: parallax scroll
-    // ---------------------------------------------------------
-
-    const heroImg = document.querySelector('.hero-bg-img');
-    if (heroImg) {
-        gsap.to(heroImg, {
-            yPercent:      18,
-            ease:          'none',
-            scrollTrigger: {
-                trigger: '.hero-section',
-                start:   'top top',
-                end:     'bottom top',
-                scrub:   1.8,
-            },
-        });
+        heroTl.fromTo(heroChildren, { y: 24, opacity: 0 }, { y: 0, opacity: 1, duration: .65, stagger: .08 });
     }
 
     // ---------------------------------------------------------

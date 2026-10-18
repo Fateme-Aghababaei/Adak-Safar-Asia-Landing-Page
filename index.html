@@ -43,9 +43,11 @@
     <link rel="manifest" href="/site.webmanifest">
 
     <!-- ================= THEME COLOR (Mobile Browser Bar) ================= -->
-    <meta name="theme-color" content="#111111">
-    <meta name="msapplication-navbutton-color" content="#111111">
+    <meta name="theme-color" content="#F5F7FA">
+    <meta name="msapplication-navbutton-color" content="#F5F7FA">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+
+    <script src="/theme.js?v=system-2"></script>
 
     <!-- ================= STYLES (OFFLINE) ================= -->
     <!-- Fonts & Icons -->
@@ -53,149 +55,41 @@
     <!-- Main Style -->
     <link rel="stylesheet" href="/style.css">
 
-    <!-- ================= ANIMATION CSS ENHANCEMENTS ================= -->
-    <style>
-        /* ---- Initial hidden state for animated elements ---- */
-        /* Prevents flash of un-animated content before GSAP loads */
-        .gsap-hero-child {
-            opacity: 0;
-        }
-
-        /* ---- Hero background subtle breathe effect ---- */
-        @keyframes heroBreathe {
-
-            0%,
-            100% {
-                opacity: 0.38;
-            }
-
-            50% {
-                opacity: 0.50;
-            }
-        }
-
-        section.hero-section .hero-bg-img {
-            animation: heroBreathe 7s ease-in-out infinite;
-        }
-
-        /* ---- FAQ answer panel slide-open transition ---- */
-        details>div {
-            animation: detailReveal 0.35s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        @keyframes detailReveal {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* ---- Decorative gold shimmer on header brand on scroll ---- */
-        @keyframes goldShimmer {
-            0% {
-                background-position: 200% center;
-            }
-
-            100% {
-                background-position: -200% center;
-            }
-        }
-
-        .header-scrolled .brand-shimmer {
-            background: linear-gradient(90deg, #D4AF37 25%, #fff8dc 50%, #D4AF37 75%);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: goldShimmer 3s linear infinite;
-        }
-
-        /* ---- Stats card number pop ---- */
-        @keyframes statPop {
-            0% {
-                transform: scale(1);
-            }
-
-            50% {
-                transform: scale(1.12);
-            }
-
-            100% {
-                transform: scale(1);
-            }
-        }
-
-        .stat-animate {
-            animation: statPop 0.4s ease-out;
-        }
-
-        /* ---- Floating bottom CTA bar entrance ---- */
-        @keyframes slideUpBar {
-            from {
-                transform: translateY(100%);
-                opacity: 0;
-            }
-
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-
-        .mobile-cta-bar {
-            animation: slideUpBar 0.6s 1.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
-        }
-
-        /* ---- Smooth reduced motion support ---- */
-        @media (prefers-reduced-motion: reduce) {
-
-            *,
-            *::before,
-            *::after {
-                animation-duration: 0.01ms !important;
-                transition-duration: 0.01ms !important;
-            }
-
-            .gsap-hero-child {
-                opacity: 1 !important;
-            }
-        }
-    </style>
-
     <!-- ================= SCRIPTS ================= -->
     <script type="module" src="/script.js"></script>
 </head>
 
 
-<body class="font-sans bg-white text-gray-800 pb-20 lg:pb-0 antialiased selection:bg-[#D4AF37] selection:text-white">
+<body class="font-sans bg-surface text-ink pb-20 lg:pb-0 antialiased selection:bg-brand selection:text-ink">
 
     <!-- ================= HEADER ================= -->
-    <header class="sticky top-0 z-50 bg-[#111111]/95 backdrop-blur-md border-b border-white/10 shadow-2xl transition-all duration-300">
+    <header class="glass-material sticky top-0 z-50 bg-surface/95 backdrop-blur-md border-b border-divider shadow-2xl transition-all duration-300">
         <div class="max-w-7xl mx-auto px-6 h-24 flex items-center justify-between">
             <!-- Brand -->
             <a href="#" class="flex items-center gap-3 group z-50" aria-label="صفحه اصلی">
 
                 <!-- Logo -->
-                <img
-                    src="/images/adak-logo.png"
-                    alt="لوگوی آداک سفر آسیا"
-                    class="h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
-                >
+                <picture class="inline-flex shrink-0">
+                    <source media="(prefers-color-scheme: dark)" srcset="/images/logo-dark.svg">
+                    <img
+                        src="/images/logo-light.svg"
+                        alt="لوگوی آداک سفر آسیا"
+                        width="64"
+                        height="64"
+                        class="h-16 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+                    >
+                </picture>
 
                 <!-- Brand Text -->
                 <div class="flex flex-col">
-                    <span class="text-2xl font-black text-white tracking-tight group-hover:text-[#D4AF37] transition-colors brand-shimmer">
+                    <span class="text-2xl font-black text-ink tracking-tight group-hover:text-brand transition-colors brand-shimmer">
                         آداک سفر
-                        <span class="text-[#D4AF37] group-hover:text-white transition-colors">
+                        <span class="text-brand group-hover:text-ink transition-colors">
                             آسیا
                         </span>
                     </span>
 
-                    <span class="text-[10px] tracking-[0.2em] text-gray-400 font-bold mt-1">
+                    <span class="text-[10px] tracking-[0.2em] text-muted font-bold mt-1">
                         HAMSAFAR JEY
                     </span>
                 </div>
@@ -204,19 +98,19 @@
 
             <!-- Desktop Nav -->
             <nav class="hidden lg:flex gap-8 items-center">
-                <a href="#about" class="text-sm font-bold text-gray-300 hover:text-[#D4AF37] transition-colors">درباره ما</a>
-                <a href="#services" class="text-sm font-bold text-gray-300 hover:text-[#D4AF37] transition-colors">خدمات ما</a>
-                <a href="#seo-guide" class="text-sm font-bold text-gray-300 hover:text-[#D4AF37] transition-colors">راهنمای صنایع</a>
-                <a href="#fleet" class="text-sm font-bold text-gray-300 hover:text-[#D4AF37] transition-colors">استانداردها</a>
-                <a href="#faq" class="text-sm font-bold text-gray-300 hover:text-[#D4AF37] transition-colors">سولات متداول</a>
+                <a href="#about" class="text-sm font-bold text-secondary hover:text-brand transition-colors">درباره ما</a>
+                <a href="#services" class="text-sm font-bold text-secondary hover:text-brand transition-colors">خدمات ما</a>
+                <a href="#seo-guide" class="text-sm font-bold text-secondary hover:text-brand transition-colors">راهنمای صنایع</a>
+                <a href="#fleet" class="text-sm font-bold text-secondary hover:text-brand transition-colors">استانداردها</a>
+                <a href="#faq" class="text-sm font-bold text-secondary hover:text-brand transition-colors">سولات متداول</a>
             </nav>
 
             <!-- CTA -->
-            <div class="flex items-center gap-4">
-                <a href="tel:+983135216665" class="hidden lg:inline-flex items-center gap-2 bg-[#D4AF37] text-[#111111] font-black text-sm px-6 py-3 rounded-lg hover:bg-white hover:text-[#111111] transition-all shadow-lg hover:shadow-[#D4AF37]/50">
+            <div class="flex items-center gap-4 header-actions">
+                <a href="tel:+983135216665" class="hidden lg:inline-flex items-center gap-2 bg-brand text-on-action font-black text-sm px-6 py-3 rounded-control hover:bg-surface hover:text-ink transition-all shadow-lg hover:shadow-brand/50">
                     <i class="bi bi-telephone-fill"></i> مشاوره تلفنی
                 </a>
-                <button id="mobile-menu-btn" aria-label="منوی موبایل" class="lg:hidden text-3xl text-[#D4AF37] focus:outline-none p-2 z-50">
+                <button id="mobile-menu-btn" aria-expanded="false" aria-controls="mobile-menu" aria-label="منوی موبایل" class="lg:hidden text-3xl text-brand focus:outline-none p-2 z-50">
                     <i class="bi bi-list" id="menu-icon"></i>
                 </button>
             </div>
@@ -224,56 +118,56 @@
     </header>
 
     <!-- Mobile Menu Overlay -->
-    <div id="mobile-menu" class="fixed inset-0 top-24 bg-[#111111]/98 backdrop-blur-md z-40 flex-col items-center justify-center space-y-8 hidden">
-        <a href="#about" class="mobile-link text-xl font-bold text-white hover:text-[#D4AF37] transition-colors">درباره ما</a>
-        <a href="#services" class="mobile-link text-xl font-bold text-white hover:text-[#D4AF37] transition-colors">خدمات ما</a>
-        <a href="#seo-guide" class="mobile-link text-xl font-bold text-white hover:text-[#D4AF37] transition-colors">راهنما</a>
-        <a href="#fleet" class="mobile-link text-xl font-bold text-white hover:text-[#D4AF37] transition-colors">استانداردها</a>
-        <a href="#faq" class="mobile-link text-xl font-bold text-white hover:text-[#D4AF37] transition-colors">سوالات متداول</a>
-        <a href="tel:+983135216665" class="bg-[#D4AF37] text-[#111111] font-black px-10 py-4 rounded-xl mt-4 shadow-xl shadow-[#D4AF37]/20">تماس با ما</a>
+    <div id="mobile-menu" class="fixed inset-0 top-24 bg-surface/98 backdrop-blur-md z-40 flex-col items-center justify-center space-y-8 hidden">
+        <a href="#about" class="mobile-link text-xl font-bold text-ink hover:text-brand transition-colors">درباره ما</a>
+        <a href="#services" class="mobile-link text-xl font-bold text-ink hover:text-brand transition-colors">خدمات ما</a>
+        <a href="#seo-guide" class="mobile-link text-xl font-bold text-ink hover:text-brand transition-colors">راهنما</a>
+        <a href="#fleet" class="mobile-link text-xl font-bold text-ink hover:text-brand transition-colors">استانداردها</a>
+        <a href="#faq" class="mobile-link text-xl font-bold text-ink hover:text-brand transition-colors">سوالات متداول</a>
+        <a href="tel:+983135216665" class="bg-brand text-on-action font-black px-10 py-4 rounded-control mt-4 shadow-xl shadow-brand/20">تماس با ما</a>
     </div>
 
     <!-- ================= HERO SECTION ================= -->
-    <section class="relative min-h-[85vh] flex items-center bg-[#111111] overflow-hidden hero-section">
+    <section class="relative min-h-[85vh] flex items-center bg-canvas overflow-hidden hero-section">
         <div class="absolute inset-0">
             <img src="images/hero-bg.jpg" alt="ناوگان حمل و نقل همسفر" class="w-full h-full object-cover opacity-40 hero-bg-img">
-            <div class="absolute inset-0 bg-linear-to-l from-[#111111] via-[#111111]/80 to-transparent"></div>
+            <div class="absolute inset-0 bg-linear-to-l from-ink via-ink/80 to-transparent"></div>
         </div>
 
         <div class="relative z-10 max-w-7xl mx-auto px-6 w-full py-20">
             <div class="max-w-2xl" id="hero-content">
-                <div class="inline-flex items-center gap-2 bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37] px-4 py-1.5 rounded-full text-xs font-bold mb-6 backdrop-blur-md gsap-hero-child">
+                <div class="inline-flex items-center gap-2 bg-brand/10 border border-brand/30 text-brand px-4 py-1.5 rounded-pill text-xs font-bold mb-6 glass-material gsap-hero-child">
                     <i class="bi bi-shield-check"></i> ۳۰ سال تجربه
                 </div>
 
-                <div class="inline-flex items-center gap-2 bg-[#D4AF37]/10 border border-[#D4AF37]/30 text-[#D4AF37] px-4 py-1.5 rounded-full text-xs font-bold mb-6 backdrop-blur-md gsap-hero-child">
+                <div class="inline-flex items-center gap-2 bg-brand/10 border border-brand/30 text-brand px-4 py-1.5 rounded-pill text-xs font-bold mb-6 glass-material gsap-hero-child">
                     <i class="bi bi-shield-check"></i> نماینده‌ی رسمی همسفر چابکسواران
                 </div>
 
-                <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-white leading-tight mb-6 gsap-hero-child">
-                    مدیریت هوشمند <span class="text-transparent bg-clip-text bg-linear-to-r from-[#D4AF37] to-yellow-200">ناوگان سازمانی</span>
+                <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-ink leading-tight mb-6 gsap-hero-child">
+                    مدیریت هوشمند <span class="text-transparent bg-clip-text bg-linear-to-r from-brand to-brand-soft">ناوگان سازمانی</span>
                 </h1>
 
-                <p class="text-gray-300 text-base md:text-lg leading-loose mb-10 text-justify border-r-2 border-[#D4AF37] pr-4 gsap-hero-child">
+                <p class="text-secondary text-base md:text-lg leading-loose mb-10 text-justify border-r-2 border-brand pr-4 gsap-hero-child">
                     آداک سفر آسیا، شریک استراتژیک صنایع و سازمان‌ها در تأمین و مدیریت ناوگان اتوبوسرانی است. ما با تلفیق تجربه عملیاتی ۳۰ ساله و استانداردهای مدرن، نظم، امنیت و بهینه‌سازی هزینه را به زنجیره جابجایی پرسنل شما باز می‌گردانیم.
                 </p>
 
                 <div class="flex flex-col sm:flex-row gap-4 mb-8 gsap-hero-child">
-                    <a href="tel:+983135216665" class="bg-[#D4AF37] text-[#111111] font-black px-8 py-4 rounded-xl text-center hover:bg-white transition-all shadow-xl shadow-[#D4AF37]/20 flex items-center justify-center gap-2">
+                    <a href="tel:+983135216665" class="bg-brand text-on-action font-black px-8 py-4 rounded-control text-center hover:bg-surface transition-all shadow-xl shadow-brand/20 flex items-center justify-center gap-2">
                         <i class="bi bi-file-text"></i> استعلام فوری قیمت
                     </a>
-                    <a href="#services" class="bg-white/5 border border-white/20 text-white font-bold px-8 py-4 rounded-xl text-center hover:bg-white hover:text-[#111111] transition-all backdrop-blur-sm">
+                    <a href="#services" class="bg-surface/5 border border-control text-ink font-bold px-8 py-4 rounded-control text-center hover:bg-surface hover:text-ink transition-all glass-material">
                         خدمات سازمانی
                     </a>
                 </div>
 
-                <div class="flex flex-wrap gap-4 md:gap-6 text-xs font-bold text-gray-300 pt-2 border-t border-white/10 mt-6">
+                <div class="flex flex-wrap gap-4 md:gap-6 text-xs font-bold text-secondary pt-2 border-t border-divider mt-6">
                     <span class="flex items-center gap-2">
-                        <i class="bi bi-check-circle-fill text-[#D4AF37]"></i>
+                        <i class="bi bi-check-circle-fill text-brand"></i>
                         مجوز رسمی بند "الف" حمل و نقل جاده‌ای
                     </span>
                     <span class="flex items-center gap-2">
-                        <i class="bi bi-check-circle-fill text-[#D4AF37]"></i>
+                        <i class="bi bi-check-circle-fill text-brand"></i>
                         ناوگان VIP اسکانیا و MAN
                     </span>
                 </div>
@@ -282,141 +176,141 @@
     </section>
 
     <!-- ================= ABOUT ================= -->
-    <section id="about" class="py-20 lg:py-32 bg-white">
+    <section id="about" class="py-20 lg:py-32 bg-surface">
         <div class="max-w-7xl mx-auto px-6">
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center" id="about-grid">
                 <div id="about-text">
-                    <p class="text-xs font-bold tracking-widest text-[#D4AF37] uppercase mb-3">درباره آداک سفر</p>
-                    <h2 class="text-3xl lg:text-4xl font-black text-[#111111] mb-6 leading-tight">تلاقی <span class="text-[#D4AF37]">اصالت تجربه</span> و مدیریت نوین</h2>
-                    <div class="w-20 h-1.5 bg-[#D4AF37] rounded mb-8"></div>
+                    <p class="text-xs font-bold tracking-widest text-brand uppercase mb-3">درباره آداک سفر</p>
+                    <h2 class="text-3xl lg:text-4xl font-black text-ink mb-6 leading-tight">تلاقی <span class="text-brand">اصالت تجربه</span> و مدیریت نوین</h2>
+                    <div class="w-20 h-1.5 bg-brand rounded-pill mb-8"></div>
 
-                    <div class="space-y-5 text-gray-600 text-justify leading-loose text-sm md:text-base">
+                    <div class="space-y-5 text-secondary text-justify leading-loose text-sm md:text-base">
                         <p>بیش از <b>۳۰ سال حضور مستمر</b> در شبکه حمل‌ونقل جاده‌ای کشور و استقرار در پایانه مسافربری، به ما آموخته است که <b>زمان‌بندی دقیق و ایمنی سفر</b>، خط قرمز خدمات سازمانی است.</p>
                         <p>آداک سفر آسیا با بهره‌گیری از زیرساخت‌های برند معتبر <b>همسفر</b> و بکارگیری کادر مدیریتی جوان و متخصص، ساختاری را فراهم کرده است که فراتر از یک پیمانکار معمولی عمل می‌کند. ما به عنوان بازوی لجستیک سازمان شما، مسئولیت کامل برنامه‌ریزی، نظارت و اجرای سرویس‌های ایاب و ذهاب را بر عهده می‌گیریم تا دغدغه مدیران منابع انسانی به صفر برسد.</p>
                     </div>
 
                     <div class="grid grid-cols-3 gap-4 mt-10" id="about-stats">
-                        <div class="bg-[#1f1f1f] text-white p-4 md:p-6 rounded-2xl border-b-4 border-[#D4AF37] text-center hover:-translate-y-1 transition-transform">
-                            <span class="block text-3xl font-black text-[#D4AF37] mb-1">۳۰</span>
-                            <span class="text-xs text-gray-400">سال تجربه</span>
+                        <div class="bg-elevated text-ink p-4 md:p-6 rounded-card border-b-4 border-brand text-center hover:-translate-y-1 transition-transform">
+                            <span class="block text-3xl font-black text-brand mb-1">۳۰</span>
+                            <span class="text-xs text-muted">سال تجربه</span>
                         </div>
-                        <div class="bg-[#1f1f1f] text-white p-4 md:p-6 rounded-2xl border-b-4 border-[#D4AF37] text-center hover:-translate-y-1 transition-transform">
-                            <span class="block text-3xl font-black text-[#D4AF37] mb-1">جوان</span>
-                            <span class="text-xs text-gray-400">کادر مدیریتی</span>
+                        <div class="bg-elevated text-ink p-4 md:p-6 rounded-card border-b-4 border-brand text-center hover:-translate-y-1 transition-transform">
+                            <span class="block text-3xl font-black text-brand mb-1">جوان</span>
+                            <span class="text-xs text-muted">کادر مدیریتی</span>
                         </div>
-                        <div class="bg-[#1f1f1f] text-white p-4 md:p-6 rounded-2xl border-b-4 border-[#D4AF37] text-center hover:-translate-y-1 transition-transform">
-                            <span class="block text-3xl font-black text-[#D4AF37] mb-1">۷/۲۴</span>
-                            <span class="text-xs text-gray-400">پشتیبانی عملیات</span>
+                        <div class="bg-elevated text-ink p-4 md:p-6 rounded-card border-b-4 border-brand text-center hover:-translate-y-1 transition-transform">
+                            <span class="block text-3xl font-black text-brand mb-1">۷/۲۴</span>
+                            <span class="text-xs text-muted">پشتیبانی عملیات</span>
                         </div>
                     </div>
                 </div>
                 <div class="relative" id="about-image">
-                    <div class="absolute -inset-4 bg-[#D4AF37] rounded-3xl -z-10 rotate-3 hidden md:block"></div>
-                    <img src="images/fleet.jpg" alt="اتوبوس VIP اسکانیا همسفر" class="w-full rounded-3xl shadow-2xl object-cover grayscale hover:grayscale-0 transition-all duration-500">
+                    <div class="absolute -inset-4 bg-brand rounded-panel -z-10 rotate-3 hidden md:block"></div>
+                    <img src="images/fleet.jpg" alt="اتوبوس VIP اسکانیا همسفر" class="w-full rounded-panel shadow-2xl object-cover grayscale hover:grayscale-0 transition-all duration-500">
                 </div>
             </div>
         </div>
     </section>
 
     <!-- ================= SERVICES ================= -->
-    <section id="services" class="py-20 lg:py-32 bg-[#f9fafb]">
+    <section id="services" class="py-20 lg:py-32 bg-canvas">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-16" id="services-header">
-                <p class="text-xs font-bold tracking-widest text-[#D4AF37] uppercase mb-3">حوزه فعالیت</p>
-                <h2 class="text-3xl lg:text-4xl font-black mb-4 text-[#111111]">راهکارهای جامع حمل و نقل</h2>
-                <div class="w-16 h-1 bg-[#D4AF37] mx-auto rounded mb-6"></div>
-                <p class="text-gray-500 max-w-2xl mx-auto">خدمات تخصصی ویژه کارخانجات، آژانس‌های مسافرتی و نهادهای دولتی</p>
+                <p class="text-xs font-bold tracking-widest text-brand uppercase mb-3">حوزه فعالیت</p>
+                <h2 class="text-3xl lg:text-4xl font-black mb-4 text-ink">راهکارهای جامع حمل و نقل</h2>
+                <div class="w-16 h-1 bg-brand mx-auto rounded-pill mb-6"></div>
+                <p class="text-muted max-w-2xl mx-auto">خدمات تخصصی ویژه کارخانجات، آژانس‌های مسافرتی و نهادهای دولتی</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8" id="services-grid">
                 <!-- Card 1 -->
-                <div class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-2xl hover:shadow-[#D4AF37]/10 hover:-translate-y-2 transition-all duration-300 border border-gray-100 group service-card">
-                    <div class="w-16 h-16 bg-[#D4AF37] text-[#111111] flex items-center justify-center rounded-2xl text-3xl mb-6 group-hover:scale-105 transition-transform service-icon"><i class="bi bi-bus-front-fill"></i></div>
-                    <h4 class="font-black text-xl mb-3 text-[#111111]">اجاره اتوبوس دربستی (VIP)</h4>
-                    <p class="text-gray-500 text-sm leading-loose text-justify">تأمین ناوگان مدرن اسکانیا و ولوو (۲۵ صندلی تخت‌خواب‌شو و ۴۴ صندلی توریستی) جهت سفرهای بین‌شهری، مأموریت‌های سازمانی و اردوهای گروهی با بالاترین استاندارد فنی.</p>
+                <div class="bg-surface rounded-card p-8 shadow-sm hover:shadow-2xl hover:shadow-brand/10 hover:-translate-y-2 transition-all duration-300 border border-divider group service-card">
+                    <div class="w-16 h-16 bg-brand text-on-action flex items-center justify-center rounded-icon text-3xl mb-6 group-hover:scale-105 transition-transform service-icon"><i class="bi bi-bus-front-fill"></i></div>
+                    <h4 class="font-black text-xl mb-3 text-ink">اجاره اتوبوس دربستی (VIP)</h4>
+                    <p class="text-muted text-sm leading-loose text-justify">تأمین ناوگان مدرن اسکانیا و ولوو (۲۵ صندلی تخت‌خواب‌شو و ۴۴ صندلی توریستی) جهت سفرهای بین‌شهری، مأموریت‌های سازمانی و اردوهای گروهی با بالاترین استاندارد فنی.</p>
                 </div>
 
                 <!-- Card 2 -->
-                <div class="bg-[#111111] rounded-3xl p-8 shadow-xl hover:-translate-y-2 transition-all duration-300 border border-[#D4AF37]/30 relative overflow-hidden group service-card">
-                    <div class="absolute top-0 left-0 bg-[#D4AF37] text-[#111111] text-xs font-black px-4 py-2 rounded-br-xl z-10">★ ویژه صنایع</div>
-                    <div class="w-16 h-16 bg-white/10 text-[#D4AF37] flex items-center justify-center rounded-2xl text-3xl mb-6 group-hover:bg-[#D4AF37] group-hover:text-[#111111] transition-colors service-icon"><i class="bi bi-buildings-fill"></i></div>
-                    <h4 class="font-black text-xl mb-3 text-white">سرویس ایاب و ذهاب صنایع</h4>
-                    <p class="text-gray-400 text-sm leading-loose text-justify">طراحی پلن حمل‌ونقل پرسنلی ویژه شهرک‌های صنعتی با تمرکز بر کاهش هزینه سربار و زمان‌بندی دقیق ورود و خروج.</p>
+                <div class="bg-ink rounded-card p-8 shadow-xl hover:-translate-y-2 transition-all duration-300 border border-brand/30 relative overflow-hidden group service-card">
+                    <div class="absolute top-0 left-0 bg-brand text-on-action text-xs font-black px-4 py-2 rounded-br-control z-10">★ ویژه صنایع</div>
+                    <div class="w-16 h-16 bg-surface/10 text-brand flex items-center justify-center rounded-icon text-3xl mb-6 group-hover:bg-brand group-hover:text-ink transition-colors service-icon"><i class="bi bi-buildings-fill"></i></div>
+                    <h4 class="font-black text-xl mb-3 text-ink">سرویس ایاب و ذهاب صنایع</h4>
+                    <p class="text-muted text-sm leading-loose text-justify">طراحی پلن حمل‌ونقل پرسنلی ویژه شهرک‌های صنعتی با تمرکز بر کاهش هزینه سربار و زمان‌بندی دقیق ورود و خروج.</p>
                 </div>
 
                 <!-- Card 3 -->
-                <div class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-2xl hover:shadow-[#D4AF37]/10 hover:-translate-y-2 transition-all duration-300 border border-gray-100 group service-card">
-                    <div class="w-16 h-16 bg-[#D4AF37] text-[#111111] flex items-center justify-center rounded-2xl text-3xl mb-6 group-hover:scale-105 transition-transform service-icon"><i class="bi bi-briefcase-fill"></i></div>
-                    <h4 class="font-black text-xl mb-3 text-[#111111]">تشریفات و رویدادها</h4>
-                    <p class="text-gray-500 text-sm leading-loose text-justify">مدیریت لجستیک همایش‌های ملی و بین‌المللی؛ جابجایی مهمانان ویژه (VIP) با خودروهای لوکس و رانندگان آموزش‌دیده در اصول تشریفات و میزبانی.</p>
+                <div class="bg-surface rounded-card p-8 shadow-sm hover:shadow-2xl hover:shadow-brand/10 hover:-translate-y-2 transition-all duration-300 border border-divider group service-card">
+                    <div class="w-16 h-16 bg-brand text-on-action flex items-center justify-center rounded-icon text-3xl mb-6 group-hover:scale-105 transition-transform service-icon"><i class="bi bi-briefcase-fill"></i></div>
+                    <h4 class="font-black text-xl mb-3 text-ink">تشریفات و رویدادها</h4>
+                    <p class="text-muted text-sm leading-loose text-justify">مدیریت لجستیک همایش‌های ملی و بین‌المللی؛ جابجایی مهمانان ویژه (VIP) با خودروهای لوکس و رانندگان آموزش‌دیده در اصول تشریفات و میزبانی.</p>
                 </div>
 
                 <!-- Card 4 -->
-                <div class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-2xl hover:shadow-[#D4AF37]/10 hover:-translate-y-2 transition-all duration-300 border border-gray-100 group service-card">
-                    <div class="w-16 h-16 bg-[#D4AF37] text-[#111111] flex items-center justify-center rounded-2xl text-3xl mb-6 group-hover:scale-105 transition-transform service-icon"><i class="bi bi-arrow-repeat"></i></div>
-                    <h4 class="font-black text-xl mb-3 text-[#111111]">چارتر خطوط گردشگری</h4>
-                    <p class="text-gray-500 text-sm leading-loose text-justify">همکاری با آژانس‌های مسافرتی جهت تأمین ناوگان ثابت (فصلی و سالانه) برای تورهای ورودی، ایران‌گردی و مسیرهای زیارتی.</p>
+                <div class="bg-surface rounded-card p-8 shadow-sm hover:shadow-2xl hover:shadow-brand/10 hover:-translate-y-2 transition-all duration-300 border border-divider group service-card">
+                    <div class="w-16 h-16 bg-brand text-on-action flex items-center justify-center rounded-icon text-3xl mb-6 group-hover:scale-105 transition-transform service-icon"><i class="bi bi-arrow-repeat"></i></div>
+                    <h4 class="font-black text-xl mb-3 text-ink">چارتر خطوط گردشگری</h4>
+                    <p class="text-muted text-sm leading-loose text-justify">همکاری با آژانس‌های مسافرتی جهت تأمین ناوگان ثابت (فصلی و سالانه) برای تورهای ورودی، ایران‌گردی و مسیرهای زیارتی.</p>
                 </div>
 
                 <!-- Card 5 -->
-                <div class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-2xl hover:shadow-[#D4AF37]/10 hover:-translate-y-2 transition-all duration-300 border border-gray-100 group service-card">
-                    <div class="w-16 h-16 bg-[#D4AF37] text-[#111111] flex items-center justify-center rounded-2xl text-3xl mb-6 group-hover:scale-105 transition-transform service-icon"><i class="bi bi-shield-check"></i></div>
-                    <h4 class="font-black text-xl mb-3 text-[#111111]">ضمانت جایگزینی</h4>
-                    <p class="text-gray-500 text-sm leading-loose text-justify">تضمین اعزام فوری ناوگان جایگزین در صورت بروز نقص فنی در هر نقطه از کشور، جهت جلوگیری از وقفه در برنامه سفر یا خط تولید کارخانه.</p>
+                <div class="bg-surface rounded-card p-8 shadow-sm hover:shadow-2xl hover:shadow-brand/10 hover:-translate-y-2 transition-all duration-300 border border-divider group service-card">
+                    <div class="w-16 h-16 bg-brand text-on-action flex items-center justify-center rounded-icon text-3xl mb-6 group-hover:scale-105 transition-transform service-icon"><i class="bi bi-shield-check"></i></div>
+                    <h4 class="font-black text-xl mb-3 text-ink">ضمانت جایگزینی</h4>
+                    <p class="text-muted text-sm leading-loose text-justify">تضمین اعزام فوری ناوگان جایگزین در صورت بروز نقص فنی در هر نقطه از کشور، جهت جلوگیری از وقفه در برنامه سفر یا خط تولید کارخانه.</p>
                 </div>
 
                 <!-- Card 6 -->
-                <div class="bg-white rounded-3xl p-8 shadow-sm hover:shadow-2xl hover:shadow-[#D4AF37]/10 hover:-translate-y-2 transition-all duration-300 border border-gray-100 group service-card">
-                    <div class="w-16 h-16 bg-[#D4AF37] text-[#111111] flex items-center justify-center rounded-2xl text-3xl mb-6 group-hover:scale-105 transition-transform service-icon"><i class="bi bi-person-plus-fill"></i></div>
-                    <h4 class="font-black text-xl mb-3 text-[#111111]">جذب سرمایه‌گذاران ناوگان</h4>
-                    <p class="text-gray-500 text-sm leading-loose text-justify">دعوت از مالکین محترم اتوبوس جهت فعالیت در پروژه‌های پایدار شرکتی و خطوط برتر کشور با تضمین درآمد، پرداخت منظم و مدیریت حرفه‌ای.</p>
+                <div class="bg-surface rounded-card p-8 shadow-sm hover:shadow-2xl hover:shadow-brand/10 hover:-translate-y-2 transition-all duration-300 border border-divider group service-card">
+                    <div class="w-16 h-16 bg-brand text-on-action flex items-center justify-center rounded-icon text-3xl mb-6 group-hover:scale-105 transition-transform service-icon"><i class="bi bi-person-plus-fill"></i></div>
+                    <h4 class="font-black text-xl mb-3 text-ink">جذب سرمایه‌گذاران ناوگان</h4>
+                    <p class="text-muted text-sm leading-loose text-justify">دعوت از مالکین محترم اتوبوس جهت فعالیت در پروژه‌های پایدار شرکتی و خطوط برتر کشور با تضمین درآمد، پرداخت منظم و مدیریت حرفه‌ای.</p>
                 </div>
             </div>
         </div>
     </section>
 
 <!-- ================= INDUSTRIAL ZONES (LOCAL SEO) ================= -->
-    <section id="industrial-zones" class="py-16 bg-white border-b border-gray-100">
+    <section id="industrial-zones" class="py-16 bg-surface border-b border-divider">
         <div class="max-w-7xl mx-auto px-6">
             <div class="text-center mb-12">
-                <p class="text-xs font-bold tracking-widest text-[#D4AF37] uppercase mb-2">پوشش جغرافیایی استان اصفهان</p>
-                <h3 class="text-2xl lg:text-3xl font-black text-[#111111]">خطوط سرویس فعال کارخانجات و شهرک‌های صنعتی</h3>
-                <div class="w-16 h-1 bg-[#D4AF37] mx-auto rounded mt-3"></div>
+                <p class="text-xs font-bold tracking-widest text-brand uppercase mb-2">پوشش جغرافیایی استان اصفهان</p>
+                <h3 class="text-2xl lg:text-3xl font-black text-ink">خطوط سرویس فعال کارخانجات و شهرک‌های صنعتی</h3>
+                <div class="w-16 h-1 bg-brand mx-auto rounded-pill mt-3"></div>
             </div>
 
             <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 text-center">
-                <div class="p-4 rounded-xl bg-gray-50 border border-gray-200 hover:border-[#D4AF37] transition-all">
-                    <i class="bi bi-geo-alt-fill text-[#D4AF37] text-lg mb-1 block"></i>
-                    <h5 class="font-bold text-sm text-gray-800">شهرک صنعتی مورچه‌خورت</h5>
+                <div class="p-4 rounded-card bg-gray-50 border border-divider hover:border-brand transition-all">
+                    <i class="bi bi-geo-alt-fill text-brand text-lg mb-1 block"></i>
+                    <h5 class="font-bold text-sm text-ink">شهرک صنعتی مورچه‌خورت</h5>
                 </div>
-                <div class="p-4 rounded-xl bg-gray-50 border border-gray-200 hover:border-[#D4AF37] transition-all">
-                    <i class="bi bi-geo-alt-fill text-[#D4AF37] text-lg mb-1 block"></i>
-                    <h5 class="font-bold text-sm text-gray-800">شهرک صنعتی کوهپایه و هرند</h5>
+                <div class="p-4 rounded-card bg-gray-50 border border-divider hover:border-brand transition-all">
+                    <i class="bi bi-geo-alt-fill text-brand text-lg mb-1 block"></i>
+                    <h5 class="font-bold text-sm text-ink">شهرک صنعتی کوهپایه و هرند</h5>
                 </div>
-                <div class="p-4 rounded-xl bg-gray-50 border border-gray-200 hover:border-[#D4AF37] transition-all">
-                    <i class="bi bi-geo-alt-fill text-[#D4AF37] text-lg mb-1 block"></i>
-                    <h5 class="font-bold text-sm text-gray-800">مجتمع فولاد مبارکه اصفهان</h5>
+                <div class="p-4 rounded-card bg-gray-50 border border-divider hover:border-brand transition-all">
+                    <i class="bi bi-geo-alt-fill text-brand text-lg mb-1 block"></i>
+                    <h5 class="font-bold text-sm text-ink">مجتمع فولاد مبارکه اصفهان</h5>
                 </div>
-                <div class="p-4 rounded-xl bg-gray-50 border border-gray-200 hover:border-[#D4AF37] transition-all">
-                    <i class="bi bi-geo-alt-fill text-[#D4AF37] text-lg mb-1 block"></i>
-                    <h5 class="font-bold text-sm text-gray-800">شهرک صنعتی جی</h5>
+                <div class="p-4 rounded-card bg-gray-50 border border-divider hover:border-brand transition-all">
+                    <i class="bi bi-geo-alt-fill text-brand text-lg mb-1 block"></i>
+                    <h5 class="font-bold text-sm text-ink">شهرک صنعتی جی</h5>
                 </div>
-                <div class="p-4 rounded-xl bg-gray-50 border border-gray-200 hover:border-[#D4AF37] transition-all">
-                    <i class="bi bi-geo-alt-fill text-[#D4AF37] text-lg mb-1 block"></i>
-                    <h5 class="font-bold text-sm text-gray-800">شهرک صنعتی محمود آیاد</h5>
+                <div class="p-4 rounded-card bg-gray-50 border border-divider hover:border-brand transition-all">
+                    <i class="bi bi-geo-alt-fill text-brand text-lg mb-1 block"></i>
+                    <h5 class="font-bold text-sm text-ink">شهرک صنعتی محمود آیاد</h5>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- ================= SEO TEXT ================= -->
-    <section id="seo-guide" class="py-16 lg:py-24 bg-white border-y border-gray-100">
+    <section id="seo-guide" class="py-16 lg:py-24 bg-surface border-y border-divider">
         <div class="max-w-5xl mx-auto px-6">
-            <h2 class="text-2xl lg:text-3xl font-black mb-8 text-[#111111] border-r-4 border-[#D4AF37] pr-4 leading-tight" id="seo-title">
+            <h2 class="text-2xl lg:text-3xl font-black mb-8 text-ink border-r-4 border-brand pr-4 leading-tight" id="seo-title">
                 چرا صنایع برتر اصفهان، مدیریت لجستیک خود را به آداک سفر می‌سپارند؟
             </h2>
 
-            <article class="prose prose-sm md:prose-base max-w-none text-justify leading-loose text-gray-600 space-y-6" id="seo-article">
+            <article class="prose prose-sm md:prose-base max-w-none text-justify leading-loose text-secondary space-y-6" id="seo-article">
                 <p>
                     در اکوسیستم صنعتی امروز، <strong>حمل‌ونقل نیروی انسانی</strong> یکی از ارکان کلیدی بهره‌وری سازمانی است. برای مدیران کارخانجات مستقر در قطب‌های صنعتی استان، دو شاخص پایداری سرویس و مدیریت هزینه‌ها اولویت استراتژیک محسوب می‌شود.
                 </p>
@@ -426,8 +320,8 @@
                 <p>
                     در حوزه گردشگری و تشریفات بین‌المللی، ناوگان <strong>اتوبوس‌های VIP (درسا و مارال)</strong> ما با استانداردهای روز اروپا، پرستیژ میزبانی شما را تضمین می‌کند. کلیه خدمات تحت قرارداد رسمی، با ارائه <strong>فاکتور معتبر</strong> و پوشش کامل بیمه مسئولیت ارائه می‌گردد تا ریسک‌های حقوقی کارفرمایان به حداقل برسد. ما برای هر چالشی در جاده، راه‌حلی از پیش تعیین شده داریم.
                 </p>
-                <p class="font-bold text-[#111111] bg-[#D4AF37]/10 p-4 rounded-lg border border-[#D4AF37]/20">
-                    <i class="bi bi-check-circle-fill text-[#D4AF37] ml-2"></i>
+                <p class="font-bold text-ink bg-brand/10 p-4 rounded-badge border border-brand/20">
+                    <i class="bi bi-check-circle-fill text-brand ml-2"></i>
                     نتیجه همکاری با ما: آرامش ذهنی پرسنل، انضباط سازمانی، عدم توقف خط تولید و شفافیت کامل در هزینه‌های لجستیک است.
                 </p>
             </article>
@@ -435,66 +329,66 @@
     </section>
 
     <!-- ================= STANDARDS ================= -->
-    <section id="fleet" class="py-20 bg-[#111111] text-white relative overflow-hidden">
-        <div class="absolute top-0 right-0 w-96 h-96 bg-[#D4AF37]/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2"></div>
+    <section id="fleet" class="py-20 bg-surface text-ink relative overflow-hidden">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-brand/5 rounded-pill blur-3xl -translate-y-1/2 translate-x-1/2"></div>
         <div class="relative z-10 max-w-7xl mx-auto px-6">
             <div class="text-center mb-16" id="fleet-header">
-                <p class="text-xs font-bold tracking-widest text-[#D4AF37] uppercase mb-3">ارزش‌های ما</p>
+                <p class="text-xs font-bold tracking-widest text-brand uppercase mb-3">ارزش‌های ما</p>
                 <h2 class="text-3xl lg:text-4xl font-black mb-4">استانداردهای خدمات VIP</h2>
-                <div class="w-12 h-1 bg-[#D4AF37] mx-auto rounded mb-4"></div>
+                <div class="w-12 h-1 bg-brand mx-auto rounded-pill mb-4"></div>
             </div>
 
             <div class="grid grid-cols-2 md:grid-cols-4 gap-8 lg:gap-12" id="fleet-grid">
                 <div class="text-center group">
-                    <div class="w-20 h-20 mx-auto bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center text-4xl text-[#D4AF37] mb-6 group-hover:bg-[#D4AF37] group-hover:text-[#111111] transition-all duration-300 shadow-lg">
+                    <div class="w-20 h-20 mx-auto bg-surface/5 border border-divider rounded-icon flex items-center justify-center text-4xl text-brand mb-6 group-hover:bg-brand group-hover:text-ink transition-all duration-300 shadow-lg">
                         <i class="bi bi-file-earmark-check"></i>
                     </div>
                     <h5 class="text-lg font-black mb-2">قرارداد رسمی حقوقی</h5>
-                    <p class="text-sm text-gray-400 leading-relaxed">شفافیت مالی با ارائه فاکتور رسمی</p>
+                    <p class="text-sm text-muted leading-relaxed">شفافیت مالی با ارائه فاکتور رسمی</p>
                 </div>
                 <div class="text-center group">
-                    <div class="w-20 h-20 mx-auto bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center text-4xl text-[#D4AF37] mb-6 group-hover:bg-[#D4AF37] group-hover:text-[#111111] transition-all duration-300 shadow-lg">
+                    <div class="w-20 h-20 mx-auto bg-surface/5 border border-divider rounded-icon flex items-center justify-center text-4xl text-brand mb-6 group-hover:bg-brand group-hover:text-ink transition-all duration-300 shadow-lg">
                         <i class="bi bi-shield-shaded"></i>
                     </div>
                     <h5 class="text-lg font-black mb-2">پوشش بیمه جامع</h5>
-                    <p class="text-sm text-gray-400 leading-relaxed">بیمه کامل سرنشین و مسئولیت در تمام سفرها</p>
+                    <p class="text-sm text-muted leading-relaxed">بیمه کامل سرنشین و مسئولیت در تمام سفرها</p>
                 </div>
                 <div class="text-center group">
-                    <div class="w-20 h-20 mx-auto bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center text-4xl text-[#D4AF37] mb-6 group-hover:bg-[#D4AF37] group-hover:text-[#111111] transition-all duration-300 shadow-lg">
+                    <div class="w-20 h-20 mx-auto bg-surface/5 border border-divider rounded-icon flex items-center justify-center text-4xl text-brand mb-6 group-hover:bg-brand group-hover:text-ink transition-all duration-300 shadow-lg">
                         <i class="bi bi-person-check"></i>
                     </div>
                     <h5 class="text-lg font-black mb-2">صلاحیت حرفه‌ای</h5>
-                    <p class="text-sm text-gray-400 leading-relaxed">پایش مستمر سلامت، عدم سوءپیشینه و مدارک فنی رانندگان</p>
+                    <p class="text-sm text-muted leading-relaxed">پایش مستمر سلامت، عدم سوءپیشینه و مدارک فنی رانندگان</p>
                 </div>
                 <div class="text-center group">
-                    <div class="w-20 h-20 mx-auto bg-white/5 border border-white/10 rounded-2xl flex items-center justify-center text-4xl text-[#D4AF37] mb-6 group-hover:bg-[#D4AF37] group-hover:text-[#111111] transition-all duration-300 shadow-lg">
+                    <div class="w-20 h-20 mx-auto bg-surface/5 border border-divider rounded-icon flex items-center justify-center text-4xl text-brand mb-6 group-hover:bg-brand group-hover:text-ink transition-all duration-300 shadow-lg">
                         <i class="bi bi-map-fill"></i>
                     </div>
                     <h5 class="text-lg font-black mb-2">شبکه سراسری</h5>
-                    <p class="text-sm text-gray-400 leading-relaxed">امکان تردد و ارائه خدمات در تمام استان‌ها و مبادی مرزی</p>
+                    <p class="text-sm text-muted leading-relaxed">امکان تردد و ارائه خدمات در تمام استان‌ها و مبادی مرزی</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- ================= FAQ (6 KEY ITEMS + SCHEMA SEO) ================= -->
-    <section id="faq" class="py-20 lg:py-32 bg-[#f9fafb]" itemscope itemtype="https://schema.org/FAQPage">
+    <section id="faq" class="py-20 lg:py-32 bg-canvas" itemscope itemtype="https://schema.org/FAQPage">
         <div class="max-w-4xl mx-auto px-6">
             <div class="text-center mb-16" id="faq-header">
-                <p class="text-xs font-bold tracking-widest text-[#D4AF37] uppercase mb-3">پایگاه دانش</p>
-                <h2 class="text-3xl lg:text-4xl font-black mb-4 text-[#111111]">پرسش‌های متداول</h2>
-                <div class="w-12 h-1 bg-[#D4AF37] mx-auto rounded"></div>
+                <p class="text-xs font-bold tracking-widest text-brand uppercase mb-3">پایگاه دانش</p>
+                <h2 class="text-3xl lg:text-4xl font-black mb-4 text-ink">پرسش‌های متداول</h2>
+                <div class="w-12 h-1 bg-brand mx-auto rounded-pill"></div>
             </div>
 
             <div class="space-y-4" id="faq-list">
 
                 <!-- Q1 -->
-                <details class="group bg-white rounded-xl border border-gray-200 overflow-hidden" name="faq-group" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-                    <summary class="flex items-center justify-between p-5 font-bold cursor-pointer hover:text-[#D4AF37] transition-colors select-none" itemprop="name">
+                <details class="group bg-surface rounded-card border border-divider overflow-hidden" name="faq-group" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <summary class="flex items-center justify-between p-5 font-bold cursor-pointer hover:text-brand transition-colors select-none" itemprop="name">
                         <span>مبنای محاسبه نرخ اجاره اتوبوس دربستی چیست؟</span>
-                        <span class="text-[#D4AF37]"><i class="bi bi-chevron-down group-open:rotate-180 transition-transform"></i></span>
+                        <span class="text-brand"><i class="bi bi-chevron-down group-open:rotate-180 transition-transform"></i></span>
                     </summary>
-                    <div class="px-5 pb-5 text-sm text-gray-600 leading-loose text-justify border-t border-gray-100 pt-4" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                    <div class="px-5 pb-5 text-sm text-secondary leading-loose text-justify border-t border-divider pt-4" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
                         <div itemprop="text">
                             تعرفه نهایی بر اساس ترکیبی از پارامترهای فنی محاسبه می‌شود: ۱. کلاس خودرو (VIP یا ۴۴ نفره)، ۲. مسافت کل پیمایش (کیلومتر رفت و برگشت)، ۳. مدت زمان در اختیار (روزانه) و ۴. فصل سفر. جهت دریافت پیش‌فاکتور دقیق با واحد فروش تماس حاصل فرمایید.
                         </div>
@@ -502,12 +396,12 @@
                 </details>
 
                 <!-- Q2 -->
-                <details class="group bg-white rounded-xl border border-gray-200 overflow-hidden" name="faq-group" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-                    <summary class="flex items-center justify-between p-5 font-bold cursor-pointer hover:text-[#D4AF37] transition-colors select-none" itemprop="name">
+                <details class="group bg-surface rounded-card border border-divider overflow-hidden" name="faq-group" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <summary class="flex items-center justify-between p-5 font-bold cursor-pointer hover:text-brand transition-colors select-none" itemprop="name">
                         <span>تفاوت فنی اتوبوس‌های VIP اسکانیا با کلاسیک در چیست؟</span>
-                        <span class="text-[#D4AF37]"><i class="bi bi-chevron-down group-open:rotate-180 transition-transform"></i></span>
+                        <span class="text-brand"><i class="bi bi-chevron-down group-open:rotate-180 transition-transform"></i></span>
                     </summary>
-                    <div class="px-5 pb-5 text-sm text-gray-600 leading-loose text-justify border-t border-gray-100 pt-4" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                    <div class="px-5 pb-5 text-sm text-secondary leading-loose text-justify border-t border-divider pt-4" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
                         <div itemprop="text">
                             اتوبوس‌های VIP دارای چیدمان صندلی ۲+۱ (مجموعاً ۲۵ صندلی) با قابلیت تخت‌خواب‌شو کامل و فضای پای زیاد هستند که برای سفرهای طولانی و تشریفات ایده‌آل است. اتوبوس‌های کلاسیک با چیدمان ۲+۲ (۴۴ صندلی) گزینه‌ای اقتصادی برای جابجایی پرسنل کارخانجات و تورهای پرجمعیت محسوب می‌شوند.
                         </div>
@@ -515,12 +409,12 @@
                 </details>
 
                 <!-- Q3 -->
-                <details class="group bg-white rounded-xl border border-gray-200 overflow-hidden" name="faq-group" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-                    <summary class="flex items-center justify-between p-5 font-bold cursor-pointer hover:text-[#D4AF37] transition-colors select-none" itemprop="name">
+                <details class="group bg-surface rounded-card border border-divider overflow-hidden" name="faq-group" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <summary class="flex items-center justify-between p-5 font-bold cursor-pointer hover:text-brand transition-colors select-none" itemprop="name">
                         <span>فرآیند عقد قرارداد سرویس ایاب و ذهاب کارخانجات چگونه است؟</span>
-                        <span class="text-[#D4AF37]"><i class="bi bi-chevron-down group-open:rotate-180 transition-transform"></i></span>
+                        <span class="text-brand"><i class="bi bi-chevron-down group-open:rotate-180 transition-transform"></i></span>
                     </summary>
-                    <div class="px-5 pb-5 text-sm text-gray-600 leading-loose text-justify border-t border-gray-100 pt-4" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                    <div class="px-5 pb-5 text-sm text-secondary leading-loose text-justify border-t border-divider pt-4" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
                         <div itemprop="text">
                             ما قراردادهای رسمی شرکتی (قابل تمدید شش ماهه یا یک‌ساله) با رویکرد تثبیت نرخ در طول قرارداد منعقد می‌کنیم. تسویه‌حساب‌ها به صورت ماهیانه، پس از ارائه گزارش تردد، تایید صورت‌وضعیت توسط کارفرما و صدور فاکتور رسمی انجام می‌شود.
                         </div>
@@ -528,12 +422,12 @@
                 </details>
 
                 <!-- Q4 -->
-                <details class="group bg-white rounded-xl border border-gray-200 overflow-hidden" name="faq-group" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-                    <summary class="flex items-center justify-between p-5 font-bold cursor-pointer hover:text-[#D4AF37] transition-colors select-none" itemprop="name">
+                <details class="group bg-surface rounded-card border border-divider overflow-hidden" name="faq-group" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <summary class="flex items-center justify-between p-5 font-bold cursor-pointer hover:text-brand transition-colors select-none" itemprop="name">
                         <span>آیا اتوبوس‌ها دارای امکانات رفاهی (یخچال/شارژر) هستند؟</span>
-                        <span class="text-[#D4AF37]"><i class="bi bi-chevron-down group-open:rotate-180 transition-transform"></i></span>
+                        <span class="text-brand"><i class="bi bi-chevron-down group-open:rotate-180 transition-transform"></i></span>
                     </summary>
-                    <div class="px-5 pb-5 text-sm text-gray-600 leading-loose text-justify border-t border-gray-100 pt-4" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                    <div class="px-5 pb-5 text-sm text-secondary leading-loose text-justify border-t border-divider pt-4" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
                         <div itemprop="text">
                             بله، کلیه ناوگان VIP مجهز به سوکت شارژر اختصاصی موبایل، سیستم صوتی و تصویری پیشرفته، یخچال و آب‌سردکن فعال می‌باشند. سیستم‌های سرمایشی و گرمایشی نیز پیش از اعزام توسط واحد فنی کنترل می‌گردد.
                         </div>
@@ -541,12 +435,12 @@
                 </details>
 
                 <!-- Q5 -->
-                <details class="group bg-white rounded-xl border border-gray-200 overflow-hidden" name="faq-group" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-                    <summary class="flex items-center justify-between p-5 font-bold cursor-pointer hover:text-[#D4AF37] transition-colors select-none" itemprop="name">
+                <details class="group bg-surface rounded-card border border-divider overflow-hidden" name="faq-group" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <summary class="flex items-center justify-between p-5 font-bold cursor-pointer hover:text-brand transition-colors select-none" itemprop="name">
                         <span>در صورت خرابی اتوبوس در جاده چه اقدامی صورت می‌گیرد؟</span>
-                        <span class="text-[#D4AF37]"><i class="bi bi-chevron-down group-open:rotate-180 transition-transform"></i></span>
+                        <span class="text-brand"><i class="bi bi-chevron-down group-open:rotate-180 transition-transform"></i></span>
                     </summary>
-                    <div class="px-5 pb-5 text-sm text-gray-600 leading-loose text-justify border-t border-gray-100 pt-4" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                    <div class="px-5 pb-5 text-sm text-secondary leading-loose text-justify border-t border-divider pt-4" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
                         <div itemprop="text">
                             با تکیه بر شبکه گسترده ناوگان همسفر در سراسر کشور، در صورت بروز هرگونه توقف فنی، واحد عملیات بلافاصله نزدیک‌ترین اتوبوس جایگزین را اعزام می‌کند تا پایداری سرویس و برنامه سفر شما حفظ شود.
                         </div>
@@ -554,12 +448,12 @@
                 </details>
 
                 <!-- Q6 -->
-                <details class="group bg-white rounded-xl border border-gray-200 overflow-hidden" name="faq-group" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
-                    <summary class="flex items-center justify-between p-5 font-bold cursor-pointer hover:text-[#D4AF37] transition-colors select-none" itemprop="name">
+                <details class="group bg-surface rounded-card border border-divider overflow-hidden" name="faq-group" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+                    <summary class="flex items-center justify-between p-5 font-bold cursor-pointer hover:text-brand transition-colors select-none" itemprop="name">
                         <span>شرایط تضمین ایمنی و فنی ناوگان چیست؟</span>
-                        <span class="text-[#D4AF37]"><i class="bi bi-chevron-down group-open:rotate-180 transition-transform"></i></span>
+                        <span class="text-brand"><i class="bi bi-chevron-down group-open:rotate-180 transition-transform"></i></span>
                     </summary>
-                    <div class="px-5 pb-5 text-sm text-gray-600 leading-loose text-justify border-t border-gray-100 pt-4" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+                    <div class="px-5 pb-5 text-sm text-secondary leading-loose text-justify border-t border-divider pt-4" itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
                         <div itemprop="text">
                             ایمنی اولویت اول ماست. کلیه ناوگان ملزم به داشتن معاینه فنی معتبر، تجهیزات ایمنی (کپسول، چکش اضطراری) و سامانه پایش هوشمند (سپهتن) هستند و قبل از هر سفر توسط مدیر فنی شرکت بازرسی می‌شوند.
                         </div>
@@ -568,20 +462,20 @@
             </div>
 
             <!-- Contact Box for Unanswered Questions -->
-            <div class="mt-16 bg-white border-2 border-[#D4AF37]/20 rounded-3xl p-8 md:p-12 text-center relative overflow-hidden shadow-xl" id="faq-contact">
+            <div class="mt-16 bg-surface border-2 border-brand/20 rounded-panel p-8 md:p-12 text-center relative overflow-hidden shadow-xl" id="faq-contact">
                 <!-- Decorative Gradient Line -->
-                <div class="absolute top-0 left-0 right-0 h-1.5 bg-linear-to-r from-transparent via-[#D4AF37] to-transparent"></div>
+                <div class="absolute top-0 left-0 right-0 h-1.5 bg-linear-to-r from-transparent via-brand to-transparent"></div>
 
-                <h4 class="text-xl md:text-2xl font-black mb-4 text-[#111111]">پاسخ سوال خود را پیدا نکردید؟</h4>
-                <p class="text-gray-500 text-sm mb-8 leading-relaxed">
+                <h4 class="text-xl md:text-2xl font-black mb-4 text-ink">پاسخ سوال خود را پیدا نکردید؟</h4>
+                <p class="text-muted text-sm mb-8 leading-relaxed">
                     کارشناسان واحد فروش سازمانی آداک سفر آماده‌اند تا به صورت تلفنی یا حضوری، <br class="hidden md:block">جزئیات فنی و حقوقی قراردادها را برای شما تشریح کنند.
                 </p>
 
                 <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                    <a href="tel:+983135216665" class="inline-flex items-center justify-center gap-2 bg-[#111111] text-white font-bold px-8 py-3.5 rounded-xl hover:bg-[#D4AF37] hover:text-[#111111] transition-all shadow-md group">
+                    <a href="tel:+983135216665" class="inline-flex items-center justify-center gap-2 bg-brand text-on-action font-bold px-8 py-3.5 rounded-control hover:bg-brand hover:text-ink transition-all shadow-md group">
                         <i class="bi bi-telephone-fill group-hover:animate-tada"></i> تماس با کارشناس
                     </a>
-                    <a href="https://wa.me/989139157856" class="inline-flex items-center justify-center gap-2 bg-white text-[#111111] border-2 border-gray-200 font-bold px-8 py-3.5 rounded-xl hover:border-[#25D366] hover:bg-[#25D366] hover:text-white transition-all shadow-sm">
+                    <a href="https://wa.me/989139157856" class="inline-flex items-center justify-center gap-2 bg-surface text-ink border-2 border-divider font-bold px-8 py-3.5 rounded-control hover:border-success hover:bg-success hover:text-ink transition-all shadow-sm">
                         <i class="bi bi-whatsapp text-lg"></i> پیام در واتس‌اپ
                     </a>
                 </div>
@@ -591,83 +485,83 @@
     </section>
 
     <!-- ================= FOOTER ================= -->
-    <footer class="bg-[#111111] text-white pt-16 pb-24 lg:pb-8 border-t-4 border-[#D4AF37]">
+    <footer class="bg-surface text-ink pt-16 pb-24 lg:pb-8 border-t-4 border-brand">
         <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center pb-12 mb-12 border-b border-white/10" id="footer-heading">
-                <h3 class="text-2xl font-black mb-3 text-[#D4AF37]">آداک سفر؛ انتخاب حرفه‌ای‌ها</h3>
-                <p class="text-white/50">مرکز تخصصی مدیریت ناوگان و حمل‌ونقل سازمانی</p>
+            <div class="text-center pb-12 mb-12 border-b border-divider" id="footer-heading">
+                <h3 class="text-2xl font-black mb-3 text-brand">آداک سفر؛ انتخاب حرفه‌ای‌ها</h3>
+                <p class="text-muted">مرکز تخصصی مدیریت ناوگان و حمل‌ونقل سازمانی</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16" id="footer-grid">
                 <div class="lg:col-span-1">
-                    <h5 class="text-[#D4AF37] text-xs font-black tracking-widest uppercase mb-6">درباره مجموعه</h5>
-                    <p class="text-gray-400 text-sm leading-loose text-justify mb-6">
+                    <h5 class="text-brand text-xs font-black tracking-widest uppercase mb-6">درباره مجموعه</h5>
+                    <p class="text-muted text-sm leading-loose text-justify mb-6">
                         آداک سفر آسیا با تکیه بر برند <strong>همسفر</strong> و رویکرد مدیریتی نوین، استانداردهای خدمات حمل‌ونقل جاده‌ای را ارتقا داده است. هدف ما ایجاد ارزش افزوده برای سازمان‌ها از طریق بهینه‌سازی لجستیک است.
                     </p>
-                    <div class="inline-flex items-center gap-2 text-[#D4AF37] text-xs font-bold bg-white/5 px-3 py-2 rounded-lg border border-white/10">
+                    <div class="inline-flex items-center gap-2 text-brand text-xs font-bold bg-surface/5 px-3 py-2 rounded-badge border border-divider">
                         <i class="bi bi-award-fill"></i> عضو رسمی انجمن صنفی شرکت‌های مسافربری
                     </div>
                 </div>
 
                 <div>
-                    <h5 class="text-[#D4AF37] text-xs font-black tracking-widest uppercase mb-6">دسترسی سریع</h5>
+                    <h5 class="text-brand text-xs font-black tracking-widest uppercase mb-6">دسترسی سریع</h5>
                     <ul class="space-y-4">
-                        <li><a href="#" class="text-gray-400 text-sm font-medium hover:text-[#D4AF37] transition-colors flex items-center gap-2"><i class="bi bi-chevron-left text-xs"></i> صفحه اصلی</a></li>
-                        <li><a href="#services" class="text-gray-400 text-sm font-medium hover:text-[#D4AF37] transition-colors flex items-center gap-2"><i class="bi bi-chevron-left text-xs"></i> خدمات سازمانی</a></li>
-                        <li><a href="#seo-guide" class="text-gray-400 text-sm font-medium hover:text-[#D4AF37] transition-colors flex items-center gap-2"><i class="bi bi-chevron-left text-xs"></i> راهنمای صنایع</a></li>
-                        <li><a href="#fleet" class="text-gray-400 text-sm font-medium hover:text-[#D4AF37] transition-colors flex items-center gap-2"><i class="bi bi-chevron-left text-xs"></i> استانداردهای ناوگان</a></li>
-                        <li><a href="#faq" class="text-gray-400 text-sm font-medium hover:text-[#D4AF37] transition-colors flex items-center gap-2"><i class="bi bi-chevron-left text-xs"></i> سوالات متداول</a></li>
+                        <li><a href="#" class="text-muted text-sm font-medium hover:text-brand transition-colors flex items-center gap-2"><i class="bi bi-chevron-left text-xs"></i> صفحه اصلی</a></li>
+                        <li><a href="#services" class="text-muted text-sm font-medium hover:text-brand transition-colors flex items-center gap-2"><i class="bi bi-chevron-left text-xs"></i> خدمات سازمانی</a></li>
+                        <li><a href="#seo-guide" class="text-muted text-sm font-medium hover:text-brand transition-colors flex items-center gap-2"><i class="bi bi-chevron-left text-xs"></i> راهنمای صنایع</a></li>
+                        <li><a href="#fleet" class="text-muted text-sm font-medium hover:text-brand transition-colors flex items-center gap-2"><i class="bi bi-chevron-left text-xs"></i> استانداردهای ناوگان</a></li>
+                        <li><a href="#faq" class="text-muted text-sm font-medium hover:text-brand transition-colors flex items-center gap-2"><i class="bi bi-chevron-left text-xs"></i> سوالات متداول</a></li>
                     </ul>
                 </div>
 
                 <div class="lg:col-span-1">
-                    <h5 class="text-[#D4AF37] text-xs font-black tracking-widest uppercase mb-6">ارتباط با ما</h5>
+                    <h5 class="text-brand text-xs font-black tracking-widest uppercase mb-6">ارتباط با ما</h5>
                     <ul class="space-y-5">
-                        <li class="flex items-start gap-3 text-gray-400 text-sm leading-relaxed">
-                            <i class="bi bi-geo-alt-fill text-[#D4AF37] text-lg mt-0.5"></i>
+                        <li class="flex items-start gap-3 text-muted text-sm leading-relaxed">
+                            <i class="bi bi-geo-alt-fill text-brand text-lg mt-0.5"></i>
                             <span>اصفهان، خیابان جی، پایانه مسافربری جی، دفتر مرکزی آداک سفر آسیا (همسفر)</span>
                         </li>
                         <li class="flex items-center gap-3">
-                            <i class="bi bi-telephone-fill text-[#D4AF37] text-lg"></i>
-                            <a href="tel:+983135216665" dir="ltr" class="text-white text-base font-bold hover:text-[#D4AF37] transition-colors tracking-wider">03135216665</a>
+                            <i class="bi bi-telephone-fill text-brand text-lg"></i>
+                            <a href="tel:+983135216665" dir="ltr" class="text-ink text-base font-bold hover:text-brand transition-colors tracking-wider">03135216665</a>
                         </li>
                         <li class="flex items-center gap-3">
-                            <i class="bi bi-phone-fill text-[#D4AF37] text-lg"></i>
-                            <a href="tel:+989139157856" dir="ltr" class="text-white text-base font-bold hover:text-[#D4AF37] transition-colors tracking-wider">09139157856</a>
+                            <i class="bi bi-phone-fill text-brand text-lg"></i>
+                            <a href="tel:+989139157856" dir="ltr" class="text-ink text-base font-bold hover:text-brand transition-colors tracking-wider">09139157856</a>
                         </li>
                     </ul>
                 </div>
 
                 <div>
-                    <h5 class="text-[#D4AF37] text-xs font-black tracking-widest uppercase mb-6">پشتیبانی و مشاوره آنلاین</h5>
-                    <p class="text-gray-400 text-sm mb-4">جهت دریافت پیش‌فاکتور و کاتالوگ خدمات، با ما در ارتباط باشید:</p>
+                    <h5 class="text-brand text-xs font-black tracking-widest uppercase mb-6">پشتیبانی و مشاوره آنلاین</h5>
+                    <p class="text-muted text-sm mb-4">جهت دریافت پیش‌فاکتور و کاتالوگ خدمات، با ما در ارتباط باشید:</p>
                     <div class="flex gap-3">
-                        <a href="https://wa.me/+989139157856" aria-label="واتس‌اپ" class="w-12 h-12 flex items-center justify-center border border-white/20 rounded-xl text-white hover:bg-[#D4AF37] hover:border-[#D4AF37] hover:text-[#111111] transition-all text-xl">
+                        <a href="https://wa.me/+989139157856" aria-label="واتس‌اپ" class="w-12 h-12 flex items-center justify-center border border-control rounded-control text-ink hover:bg-brand hover:border-brand hover:text-ink transition-all text-xl">
                             <i class="bi bi-whatsapp"></i>
                         </a>
-                        <a href="https://eitaa.com/+989139157856" aria-label="ایتا" class="w-12 h-12 flex items-center justify-center border border-white/20 rounded-xl text-white hover:bg-[#D4AF37] hover:border-[#D4AF37] hover:text-[#111111] transition-all text-xl">
+                        <a href="https://eitaa.com/+989139157856" aria-label="ایتا" class="w-12 h-12 flex items-center justify-center border border-control rounded-control text-ink hover:bg-brand hover:border-brand hover:text-ink transition-all text-xl">
                             <i class="bi bi-send-fill"></i>
                         </a>
-                        <a href="https://t.me/+989139157856" aria-label="تلگرام" class="w-12 h-12 flex items-center justify-center border border-white/20 rounded-xl text-white hover:bg-[#D4AF37] hover:border-[#D4AF37] hover:text-[#111111] transition-all text-xl">
+                        <a href="https://t.me/+989139157856" aria-label="تلگرام" class="w-12 h-12 flex items-center justify-center border border-control rounded-control text-ink hover:bg-brand hover:border-brand hover:text-ink transition-all text-xl">
                             <i class="bi bi-telegram"></i>
                         </a>
                     </div>
                 </div>
             </div>
 
-            <div class="pt-8 border-t border-white/10 text-xs text-gray-400" dir="ltr">
+            <div class="pt-8 border-t border-divider text-xs text-muted" dir="ltr">
                 <div class="flex flex-col md:flex-row justify-center items-center gap-3 md:gap-8 text-center">
-                    <p class="flex items-center gap-2 hover:text-gray-200 transition duration-300">
+                    <p class="flex items-center gap-2 hover:text-secondary transition duration-300">
                         <span>
                             © 2021 - 2026 All rights reserved for
-                            <strong class="text-gray-300 font-semibold">Adak Safar Asia (Hamsafar Jey)</strong>
+                            <strong class="text-secondary font-semibold">Adak Safar Asia (Hamsafar Jey)</strong>
                         </span>
                     </p>
-                    <span class="hidden md:inline text-gray-600">•</span>
-                    <p class="flex items-center gap-2 hover:text-gray-200 transition duration-300">
+                    <span class="hidden md:inline text-secondary">•</span>
+                    <p class="flex items-center gap-2 hover:text-secondary transition duration-300">
                         <span>
                             Designed & Developed by
-                            <span class="text-gray-300 font-medium">Adak Safar Asia Tech Team</span>
+                            <span class="text-secondary font-medium">Adak Safar Asia Tech Team</span>
                         </span>
                     </p>
 
@@ -678,11 +572,11 @@
     </footer>
 
     <!-- ================= MOBILE STICKY BOTTOM ================= -->
-    <div class="fixed bottom-0 left-0 right-0 p-4 bg-[#111111]/90 backdrop-blur-md border-t border-white/10 flex gap-3 lg:hidden z-50 mobile-cta-bar">
-        <a href="tel:+983135216665" class="flex-1 bg-[#D4AF37] text-[#111111] font-black text-sm py-3 rounded-xl flex items-center justify-center gap-2 hover:-translate-y-1 transition-transform shadow-lg">
+    <div class="fixed bottom-0 left-0 right-0 p-4 bg-surface/90 backdrop-blur-md border-t border-divider flex gap-3 lg:hidden z-50 mobile-cta-bar glass-material">
+        <a href="tel:+983135216665" class="flex-1 bg-brand text-on-action font-black text-sm py-3 rounded-control flex items-center justify-center gap-2 hover:-translate-y-1 transition-transform shadow-lg">
             <i class="bi bi-telephone-fill text-lg"></i> تماس فوری
         </a>
-        <a href="https://wa.me/989139157856" class="flex-1 bg-[#25D366] text-white font-black text-sm py-3 rounded-xl flex items-center justify-center gap-2 hover:-translate-y-1 transition-transform shadow-lg">
+        <a href="https://wa.me/989139157856" class="flex-1 bg-success text-on-action font-black text-sm py-3 rounded-control flex items-center justify-center gap-2 hover:-translate-y-1 transition-transform shadow-lg">
             <i class="bi bi-whatsapp text-lg"></i> واتس‌اپ
         </a>
     </div>

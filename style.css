@@ -1,24 +1,5 @@
 @import "tailwindcss";
 
-/* ============================= */
-/*            THEME             */
-/* ============================= */
-@theme {
-  /* Colors - RGB for opacity support */
-  --color-primary: 17 17 17;
-  --color-charcoal: 31 31 31;
-  --color-gold: 212 175 55;
-  --color-gold-hover: 181 149 47;
-  --color-light: 249 250 251;
-
-  --radius-base: 0.75rem;
-
-  --font-sans: "Vazirmatn", sans-serif;
-}
-
-/* ============================= */
-/*            FONTS             */
-/* ============================= */
 @font-face {
     font-family: "Vazirmatn";
     src: url("/fonts/Vazirmatn-Regular.woff2") format("woff2");
@@ -39,105 +20,231 @@
     font-weight: 700;
     font-display: swap;
   }
-/* ============================= */
-/*            BASE              */
-/* ============================= */
+
+/* Semantic palette: utilities and components share these live theme values. */
+:root {
+  color-scheme: light;
+  /* Shape hierarchy: small labels, controls, icon tiles, cards, large panels.
+     Nested surfaces subtract their inset from the outer radius. */
+  --corner-badge: .5rem;
+  --corner-control: .75rem;
+  --corner-icon: 1rem;
+  --corner-card: 1.5rem;
+  --corner-panel: 1.75rem;
+  --corner-pill: 9999px;
+  --canvas: #F5F7FA; --surface: #FFFFFF; --elevated: #EAF1F8;
+  --ink: #12304A; --secondary: #263746; --muted: #526779;
+  --brand: #2068BD; --brand-hover: #17549A; --brand-soft: #2F70B8;
+  --on-action: #FFFFFF; --accent: #FFB547; --accent-ink: #76500A;
+  --divider: #D8E2EB; --control: #72879A; --focus: #2068BD;
+  --glass: rgb(248 251 255 / .76); --glass-border: rgb(255 255 255 / .72);
+  --glass-edge: rgb(95 140 179 / .38);
+  --glass-reflection: rgb(255 255 255 / .55);
+  --glass-glint: rgb(255 255 255 / .8);
+  --glass-shadow: 0 8px 24px rgb(18 48 74 / .09), 0 24px 60px rgb(18 48 74 / .09);
+  --glass-environment: radial-gradient(ellipse at 12% 15%, rgb(38 118 210 / .14), transparent 55%), radial-gradient(ellipse at 90% 80%, rgb(255 181 71 / .09), transparent 50%);
+  --glass-highlight: rgb(255 255 255 / .85);
+  --shadow: 0 12px 36px rgb(18 48 74 / .08);
+  --shadow-raised: 0 20px 50px rgb(18 48 74 / .14);
+  --gradient: linear-gradient(135deg, var(--surface), var(--elevated));
+  --hero-scrim: linear-gradient(270deg, rgb(245 247 250 / .98) 0%, rgb(245 247 250 / .96) 52%, rgb(245 247 250 / .08) 100%);
+  --success: #146341; --warning: #76500A; --error: #B42336;
+  --action-secondary: var(--surface); --action-secondary-hover: var(--elevated);
+  --action-active: var(--brand-hover); --disabled: #DFE5EB; --disabled-text: #526779;
+}
+@media (prefers-color-scheme: dark) {
+:root {
+  color-scheme: dark;
+  --canvas: #0B1928; --surface: #10263B; --elevated: #1B354C;
+  --ink: #F5F7FA; --secondary: #CAD7E3; --muted: #B8C9D8;
+  --brand: #93C5FF; --brand-hover: #B4D7FF; --brand-soft: #B4D7FF;
+  --on-action: #0B1928; --accent: #FFBE62; --accent-ink: #FFCE83;
+  --divider: #304B62; --control: #7996AE; --focus: #93C5FF;
+  --glass: rgb(16 38 59 / .8); --glass-border: rgb(191 221 248 / .36);
+  --glass-edge: rgb(118 182 238 / .28);
+  --glass-reflection: rgb(191 221 248 / .15);
+  --glass-glint: rgb(218 239 255 / .38);
+  --glass-shadow: 0 8px 24px rgb(3 14 25 / .24), 0 24px 60px rgb(3 14 25 / .28);
+  --glass-environment: radial-gradient(ellipse at 12% 15%, rgb(38 118 210 / .22), transparent 55%), radial-gradient(ellipse at 90% 80%, rgb(104 164 209 / .1), transparent 50%);
+  --glass-highlight: rgb(194 221 245 / .16);
+  --shadow: 0 12px 36px rgb(3 14 25 / .22);
+  --shadow-raised: 0 20px 50px rgb(3 14 25 / .35);
+  --hero-scrim: linear-gradient(270deg, rgb(11 25 40 / .98) 0%, rgb(11 25 40 / .96) 52%, rgb(11 25 40 / .12) 100%);
+  --success: #91DEB9; --warning: #FFCE83; --error: #FFAFBA;
+  --disabled: #263E53; --disabled-text: #B8C9D8;
+}
+}
+@theme inline {
+  --radius-*: initial;
+  --radius-badge: var(--corner-badge);
+  --radius-control: var(--corner-control);
+  --radius-icon: var(--corner-icon);
+  --radius-card: var(--corner-card);
+  --radius-panel: var(--corner-panel);
+  --radius-pill: var(--corner-pill);
+  --font-sans: "Vazirmatn", sans-serif;
+  --color-canvas: var(--canvas); --color-surface: var(--surface);
+  --color-elevated: var(--elevated); --color-ink: var(--ink);
+  --color-secondary: var(--secondary); --color-muted: var(--muted);
+  --color-brand: var(--brand); --color-brand-soft: var(--brand-soft);
+  --color-on-action: var(--on-action); --color-divider: var(--divider);
+  --color-control: var(--control); --color-success: var(--success);
+}
 @layer base {
-
-  html {
-    scroll-behavior: smooth;
+  html { scroll-behavior: smooth; scroll-padding-top: 8rem; }
+  body { font-family: var(--font-sans); background: var(--canvas); color: var(--ink); line-height: 1.8; -webkit-font-smoothing: antialiased; }
+  h1, h2, h3, h4, h5 { text-wrap: balance; }
+  a, button, summary, input { -webkit-tap-highlight-color: transparent; }
+  a, button, summary { transition: color .2s, background-color .2s, border-color .2s, box-shadow .2s, transform .2s; }
+  :focus-visible { outline: 3px solid var(--focus) !important; outline-offset: 4px; }
+  ::selection { background: var(--brand); color: var(--on-action); }
+  * { scrollbar-width: thin; scrollbar-color: var(--brand) var(--canvas); }
+  details > summary { list-style: none; cursor: pointer; }
+  details > summary::-webkit-details-marker { display: none; }
+}
+/* Glass is a separate floating layer. Opaque material is the baseline fallback.
+   CSS simulates the lighting; it does not provide native optical refraction. */
+.glass-material {
+  --glass-x: 25%; --glass-y: 0%;
+  isolation: isolate;
+  background: var(--surface);
+  border: 1px solid var(--glass-border);
+  box-shadow: inset 0 1px 1px var(--glass-highlight), inset 0 -1px 1px var(--glass-edge), var(--glass-shadow);
+}
+.glass-material:not(header):not(.mobile-cta-bar) { position: relative; }
+.glass-material::before, .glass-material::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+/* Opposing specular edges give the material thickness without blurring text. */
+.glass-material::before {
+  border: 1px solid transparent;
+  background: linear-gradient(135deg, var(--glass-reflection), transparent 28%, transparent 75%, var(--glass-reflection));
+  box-shadow: inset 1px 1px 0 var(--glass-highlight), inset -1px -1px 0 var(--glass-edge);
+  z-index: -1;
+}
+.glass-material::after {
+  background: radial-gradient(ellipse 260px 100px at var(--glass-x) var(--glass-y), var(--glass-glint), transparent 75%);
+  opacity: .25;
+  z-index: -1;
+  transition: opacity .2s;
+}
+.glass-material:hover::after { opacity: .55; }
+@supports ((backdrop-filter: blur(18px)) or (-webkit-backdrop-filter: blur(18px))) {
+  .glass-material {
+    background: linear-gradient(145deg, var(--glass-reflection), transparent 38%, transparent 70%, var(--glass-reflection)), var(--glass);
+    -webkit-backdrop-filter: blur(18px) saturate(155%);
+    backdrop-filter: blur(18px) saturate(155%);
   }
-
-  body {
-    font-family: var(--font-sans);
-    background-color: rgb(var(--color-primary));
-    color: rgb(var(--color-light));
-    line-height: 1.7;
-    -webkit-font-smoothing: antialiased;
-    text-rendering: optimizeLegibility;
-  }
-
-  h1 { @apply text-4xl font-bold tracking-tight; }
-  h2 { @apply text-3xl font-semibold; }
-  h3 { @apply text-2xl font-medium; }
-
-  a {
-    @apply transition-colors duration-200;
-  }
-
-  a:hover {
-    color: rgb(var(--color-gold));
-  }
-
+}
+header { margin: .75rem auto -6.25rem; width: calc(100% - 1.5rem); max-width: 1480px; top: .75rem !important; border-radius: var(--corner-panel); }
+header > div { height: 5.5rem; gap: 1rem; }
+header nav { gap: clamp(.8rem, 1.5vw, 1.8rem) !important; }
+header nav a { white-space: nowrap; padding-block: .75rem; }
+header .brand-shimmer { color: var(--ink); }
+header img { display: block; }
+.header-scrolled { box-shadow: inset 0 1px var(--glass-highlight), inset 0 -1px var(--glass-edge), var(--glass-shadow); }
+#mobile-menu { background: var(--surface); top: 7rem; overflow-y: auto; padding: 2rem 1rem 7rem; }
+#mobile-menu a { min-height: 44px; }
+#mobile-menu-btn { border-radius: var(--corner-control); }
+.hero-section { background: var(--canvas); min-height: 80svh; padding-top: 6.25rem; }
+.hero-section .hero-bg-img { opacity: .8; animation: none; }
+.hero-section > .absolute > div { background: var(--hero-scrim); }
+#hero-content { max-width: 44rem; }
+#hero-content h1 { line-height: 1.55; letter-spacing: -.025em; }
+#hero-content > .rounded-pill { border-color: var(--divider); padding: .55rem 1rem; margin-inline-end: .35rem; }
+#hero-content > .rounded-pill:first-child { color: var(--accent-ink); border-color: var(--accent); }
+#hero-content p { color: var(--secondary); }
+a.bg-brand, a.bg-success { color: var(--on-action); border: 1px solid transparent; box-shadow: var(--shadow); }
+a.bg-brand:hover { background: var(--brand-hover); color: var(--on-action); box-shadow: var(--shadow-raised); }
+a.bg-success { color: var(--surface); }
+@media (prefers-color-scheme: dark) { a.bg-success { color: var(--on-action); } }
+a.bg-success:hover { filter: brightness(.95); }
+#hero-content a:not(.bg-brand) { color: var(--ink); border-color: var(--control); }
+#hero-content a:not(.bg-brand):hover { border-color: var(--brand); }
+#about, #industrial-zones, #seo-guide { background: var(--surface); }
+#services, #faq { background: var(--canvas); }
+#about-stats > div { background: var(--gradient); color: var(--ink); border: 1px solid var(--divider); border-bottom: 3px solid var(--brand); box-shadow: var(--shadow); }
+#about-image { isolation: isolate; }
+#about-image > div { border-radius: calc(var(--corner-panel) + 1rem); background: var(--elevated); border: 1px solid var(--glass-border); transform: rotate(4deg); }
+#about-image img { filter: none; box-shadow: var(--shadow-raised); }
+.service-card { background: var(--surface); border: 1px solid var(--divider); box-shadow: var(--shadow); }
+.service-card:hover { border-color: var(--control); box-shadow: var(--shadow-raised); transform: translateY(-4px); }
+.service-card:nth-child(2) { background: var(--gradient); border-color: var(--brand); }
+.service-icon { background: var(--elevated); color: var(--brand); border: 1px solid var(--divider); }
+.service-card:hover .service-icon { background: var(--brand); color: var(--on-action); }
+.service-card > .absolute { background: var(--accent); color: #12304A; }
+#industrial-zones .grid > div { background: var(--canvas); }
+#seo-article > p:last-child { background: var(--elevated); border-color: var(--divider); border-radius: var(--corner-card); padding: 1.5rem; }
+#fleet { background: var(--gradient); border-block: 1px solid var(--divider); }
+#fleet-grid .group > div { background: var(--surface); border-color: var(--glass-border); color: var(--brand); box-shadow: var(--shadow); }
+#fleet-grid .group:hover > div { background: var(--brand); color: var(--on-action); }
+#faq-list details { background: var(--surface); border-color: var(--divider); border-radius: var(--corner-card); box-shadow: 0 2px 6px rgb(18 48 74 / .03); }
+#faq-list details[open] { border-color: var(--control); box-shadow: var(--shadow); }
+#faq-list summary { min-height: 64px; gap: 1rem; padding: 1.5rem; }
+#faq-list summary:hover { color: var(--brand); }
+#faq-contact { background: var(--gradient); border: 1px solid var(--glass-border); box-shadow: var(--shadow-raised); }
+#faq-contact a { min-height: 48px; }
+#faq-contact a:first-child { background: var(--brand); color: var(--on-action); }
+#faq-contact a:first-child:hover { background: var(--brand-hover); }
+#faq-contact a:nth-child(2):hover { color: var(--surface); }
+@media (prefers-color-scheme: dark) { #faq-contact a:nth-child(2):hover { color: var(--on-action); } }
+footer { background: var(--surface) !important; border-top: 1px solid var(--divider) !important; }
+footer a:hover { color: var(--brand); }
+footer a[aria-label] { border-color: var(--control); }
+footer a[aria-label]:hover { background: var(--brand); color: var(--on-action); }
+.mobile-cta-bar { margin: .6rem; border-radius: calc(var(--corner-control) + 1rem); width: calc(100% - 1.2rem); padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
+button:disabled, input:disabled { background: var(--disabled); color: var(--disabled-text); cursor: not-allowed; }
+@media (min-width: 1024px) and (max-width: 1279px) { header > div { padding-inline: 1rem; } .header-actions { gap: .5rem; } header a[href^="tel:"] { padding-inline: 1rem; } }
+@media (max-width: 639px) {
+  header { margin-block: .5rem; top: .5rem !important; }
+  header > div { height: auto; min-height: 5rem; padding: .75rem; flex-wrap: wrap; gap: .5rem; }
+  header > div > a { gap: .5rem; }
+  header img { height: 2.75rem; }
+  header .brand-shimmer { font-size: 1.2rem; }
+  .header-actions { gap: .35rem; margin-inline-start: auto; }
+  #mobile-menu { top: 6.5rem; }
+  .hero-section { min-height: auto; }
+  #hero-content h1 { font-size: clamp(2rem, 8vw, 3rem); }
+  #about-stats { gap: .5rem; }
+  #about-stats > div { padding: 1rem .35rem; }
+  #fleet-grid { gap: 1.5rem 1rem; }
+}
+@media (prefers-reduced-transparency: reduce) {
+  .glass-material { background: var(--surface) !important; backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .glass-material::before, .glass-material::after { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto !important; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+@media (max-width: 639px) {
+  header > div { display: grid; grid-template-columns: 1fr auto; }
+  header > div > a { grid-column: 1; grid-row: 1; }
+  .header-actions { display: contents; }
+  #mobile-menu-btn { grid-column: 2; grid-row: 1; }
+  #mobile-menu { top: 6.5rem; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  body, section, footer, header, .service-card, details { transition: background-color .2s, color .2s, border-color .2s, box-shadow .2s; }
 }
 
-/* ============================= */
-/*        COMPONENT LAYER       */
-/* ============================= */
-@layer components {
-
-  .container-pro {
-    @apply max-w-7xl mx-auto px-6;
-  }
-
-  .btn-gold {
-    @apply px-6 py-3 rounded-xl font-medium transition-all duration-200;
-    background-color: rgb(var(--color-gold));
-    color: black;
-  }
-
-  .btn-gold:hover {
-    background-color: rgb(var(--color-gold-hover));
-  }
-
-  .card-dark {
-    @apply rounded-2xl p-6 shadow-lg;
-    background-color: rgb(var(--color-charcoal));
-  }
-
+/* Readable navigation ink even over the darkest/lightest transmitted content. */
+header .text-secondary, header .text-muted, header .text-brand,
+header nav a:hover, #mobile-menu-btn { color: var(--ink); }
+#services { background-image: var(--glass-environment); }
+.service-icon, #fleet-grid .group > div {
+  background-image: linear-gradient(135deg, var(--glass-highlight), transparent 50%);
+  box-shadow: inset 0 1px 1px var(--glass-highlight), inset 0 -1px var(--glass-edge), var(--shadow);
 }
-
-/* ============================= */
-/*          SCROLLBAR           */
-/* ============================= */
-::-webkit-scrollbar {
-  width: 8px;
+a.bg-brand, a.bg-success {
+  background-image: linear-gradient(180deg, rgb(255 255 255 / .17), transparent 55%);
+  box-shadow: inset 0 1px 1px var(--glass-highlight), inset 0 -1px 1px var(--glass-edge), var(--shadow);
 }
-
-::-webkit-scrollbar-track {
-  background: rgb(var(--color-primary));
+@media (prefers-contrast: more), (forced-colors: active) {
+  .glass-material { background: var(--surface) !important; border-color: var(--control); backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .glass-material::before, .glass-material::after { display: none; }
 }
-
-::-webkit-scrollbar-thumb {
-  background: rgb(var(--color-gold));
-  border-radius: 999px;
-}
-
-::-webkit-scrollbar-thumb:hover {
-  background: rgb(var(--color-gold-hover));
-}
-
-/* Firefox support */
-* {
-  scrollbar-width: thin;
-  scrollbar-color: rgb(var(--color-gold)) rgb(var(--color-primary));
-}
-
-/* ============================= */
-/*         DETAILS FIX          */
-/* ============================= */
-details > summary {
-  list-style: none;
-  cursor: pointer;
-}
-
-details > summary::-webkit-details-marker {
-  display: none;
-}
-
-.mobile-open {
-    opacity: 1 !important;
-    pointer-events: auto !important;
-    transform: translateY(0) !important;
-}
-
