@@ -206,7 +206,7 @@
                 </div>
                 <div class="relative" id="about-image">
                     <div class="absolute -inset-4 bg-brand rounded-panel -z-10 rotate-3 hidden md:block"></div>
-                    <img src="images/fleet.jpg" alt="اتوبوس VIP اسکانیا همسفر" class="w-full rounded-panel shadow-2xl object-cover grayscale hover:grayscale-0 transition-all duration-500">
+                    <img src="images/fleet.jpg" alt="اتوبوس VIP اسکانیا همسفر" loading="lazy" decoding="async" class="w-full rounded-panel shadow-2xl object-cover grayscale hover:grayscale-0 transition-all duration-500">
                 </div>
             </div>
         </div>
@@ -529,6 +529,10 @@
                             <i class="bi bi-phone-fill text-brand text-lg"></i>
                             <a href="tel:+989139157856" dir="ltr" class="text-ink text-base font-bold hover:text-brand transition-colors tracking-wider">09139157856</a>
                         </li>
+                        <li class="flex items-center gap-3">
+                            <i class="bi bi-envelope-fill text-brand text-base"></i>
+                            <a href="mailto:info@adaksafarasia.ir" dir="ltr" class="text-ink text-sm font-bold hover:text-brand transition-colors">support@adaksafarasia.ir</a>
+                        </li>
                     </ul>
                 </div>
 
@@ -553,7 +557,7 @@
                 <div class="flex flex-col md:flex-row justify-center items-center gap-3 md:gap-8 text-center">
                     <p class="flex items-center gap-2 hover:text-secondary transition duration-300">
                         <span>
-                            © 2021 - 2026 All rights reserved for
+                            © All rights reserved for
                             <strong class="text-secondary font-semibold">Adak Safar Asia (Hamsafar Jey)</strong>
                         </span>
                     </p>
@@ -583,52 +587,53 @@
 
     <!-- ================= SEO LOCAL BUSINESS SCHEMA ================= -->
     <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "TravelAgency",
-      "name": "آداک سفر آسیا (همسفر جی)",
-      "alternateName": "Adak Safar Asia",
-      "description": "مرکز تخصصی اجاره اتوبوس دربستی VIP و سرویس ایاب و ذهاب کارخانجات در اصفهان",
-      "image": "https://adaksafarasia.ir/images/hero-bg.jpg",
-      "@id": "https://adaksafarasia.ir",
-      "url": "https://adaksafarasia.ir",
-      "telephone": "+983135216665",
-      "telephone": "+983135219992",
-      "priceRange": "$$",
-      "address": {
-        "@type": "PostalAddress",
-        "streetAddress": "پایانه مسافربری جی",
-        "addressLocality": "اصفهان",
-        "addressRegion": "اصفهان",
-        "postalCode": "8156963576",
-        "addressCountry": "IR"
-      },
-      "geo": {
-        "@type": "GeoCoordinates",
-        "latitude": 32.6560,
-        "longitude": 51.7100
-      },
-      "openingHoursSpecification": {
-        "@type": "OpeningHoursSpecification",
-        "dayOfWeek": [
-          "Saturday",
-          "Sunday",
-          "Monday",
-          "Tuesday",
-          "Wednesday",
-          "Thursday",
-          "Friday"
-        ],
-        "opens": "00:00",
-        "closes": "23:59"
-      },
-      "sameAs": [
-        "https://t.me/+989139157856",
-        "https://eitaa.com/+989139157856"
-      ]
-    }
-    </script>
-
+        {
+          "@context": "https://schema.org",
+          "@type": "TransportationService",
+          "name": "آداک سفر آسیا (همسفر جی)",
+          "alternateName": "Adak Safar Asia",
+          "description": "مرکز تخصصی اجاره اتوبوس دربستی VIP و سرویس ایاب و ذهاب کارخانجات در اصفهان",
+          "image": "https://adaksafarasia.ir/images/hero-bg.jpg",
+          "@id": "https://adaksafarasia.ir",
+          "url": "https://adaksafarasia.ir",
+          "telephone": [
+            "+983135216665",
+            "+983135219992"
+          ],
+          "priceRange": "$$",
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": "پایانه مسافربری جی، دفتر همسفر",
+            "addressLocality": "اصفهان",
+            "addressRegion": "اصفهان",
+            "postalCode": "8156963576",
+            "addressCountry": "IR"
+          },
+          "geo": {
+            "@type": "GeoCoordinates",
+            "latitude": 32.6560,
+            "longitude": 51.7100
+          },
+          "openingHoursSpecification": {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": [
+              "Saturday",
+              "Sunday",
+              "Monday",
+              "Tuesday",
+              "Wednesday",
+              "Thursday",
+              "Friday"
+            ],
+            "opens": "00:00",
+            "closes": "23:59"
+          },
+          "sameAs": [
+            "https://t.me/+989139157856",
+            "https://eitaa.com/+989139157856"
+          ]
+        }
+        </script>
 </body>
 
 </html>
