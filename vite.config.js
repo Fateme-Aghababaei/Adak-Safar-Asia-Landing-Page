@@ -3,7 +3,7 @@ import tailwindcss from '@tailwindcss/vite';
 import { readFile } from 'node:fs/promises';
 
 // Keep discovery files at the project root and publish them at the site root.
-const discoveryFiles = ['llms.txt', 'robots.txt', 'sitemap.xml'];
+const discoveryFiles = ['llms.txt', 'robots.txt', 'sitemap.xml', 'images/og-preview.jpg'];
 
 export default defineConfig({
   plugins: [
